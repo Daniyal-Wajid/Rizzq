@@ -1,0 +1,157 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f7;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    background-color: #fdfdfd;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+h3 {
+    color: rgb(23, 18, 63);
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li .nav-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+header nav ul li .nav-btn:hover {
+    border: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+header nav ul li .home-btn {
+    background-color: #6c757d; /* Grey */
+}
+
+header nav ul li .post-job-btn {
+    background-color: #28a745; /* Green */
+}
+
+header nav ul li .hire-freelancer-btn {
+    background-color: #007bff; /* Blue */
+}
+
+header nav ul li .logout-btn {
+    background-color: #dc3545; /* Red */
+}
+
+/* Main content styling */
+main {
+    padding: 20px;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 40px;
+    margin: 50px auto;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #2b3e50;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.continue-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.continue-button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    background-color: #2b3e50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

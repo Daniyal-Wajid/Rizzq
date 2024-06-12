@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting Form</title>
+    <link rel="stylesheet" href="./css/postjob.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>POST YOUR FIRST JOB IN MINUTES!</h1>
+        <p>Looking for assistance? Call: 0800-000-111 (RIZZQ)</p>
+        <form id="jobForm">
+            <label for="job-title">Job Title*</label>
+            <input type="text" id="job-title" name="title" required>
+            
+            <label for="job-description">Job Description*</label>
+            <textarea id="job-description" name="description" required></textarea>
+            
+            <label for="skills">What skills are required for this job?*</label>
+            <input type="text" id="skills" name="skills" placeholder="e.g. PHP, SEO, Marketing" required>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="career-level">Required career level for this job?*</label>
+                    <select id="career-level" name="careerLevel" required>
+                        <option value="">Choose career level</option>
+                        <option value="Student">Student</option>
+                        <option value="CEO">CEO</option>
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="positions">No. of Positions*</label><br>
+                    <input type="number" id="positions" name="positions" value="1" required>
+                </div>
+            </div>
+            
+            <label for="location">Job Location*</label>
+            <input type="text" id="location" name="location" placeholder="Select multiple cities" required>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="qualification">What minimum qualification is required?*</label><br>
+                    <select id="qualification" name="qualification" required>
+                        <option value="">Select degree level</option>
+                        <option value="Matric">Matric</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="BS">BS</option>
+                        <option value="MS">MS</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="experience-min">Years of experience required?*</label><br>
+                    <input type="number" id="experience-min" name="experience" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="industry">Choose industry*</label><br>
+                <select id="industry" name="industry" required>
+                    <option value="">Choose industry</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="IT">IT</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Engineering">Engineering</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salary-from">What is the salary range?*</label><br>
+                    <input type="number" id="salary-from" name="salary" placeholder="From" required>
+                </div>
+            </div>
+            
+            <label for="gender-preference">Is there a gender preference for this job?</label>
+            <select id="gender-preference" name="genderPreference">
+                <option value="no-preference">No Preference</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            
+            <br> 
+            <div class="checkbox-group">
+                <input type="checkbox" id="custom-questions" name="customQuestions">
+                <label for="custom-questions">Screen your applicants further with custom questions</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="authorize" name="authorize" required>
+                <label for="authorize">I authorize Rizzq.PK to post jobs of my company on its website.</label>
+            </div>
+            <br>
+            <button type="submit" class="continue-button">Continue</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        // Handle form submission
+        document.getElementById('jobForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const formData = new FormData(this); // Get form data
+            
+            // Convert form data to JSON object
+            const jobData = {};
+            formData.forEach((value, key) => {
+                jobData[key] = (key === 'customQuestions' || key === 'authorize') ? true : value; // Handle checkbox values
+            });
+
+            try {
+                // Send job data to server for saving to the database
+                const response = await axios.post('/jobs', jobData);
+                console.log(response.data); // Log the saved job data
+                alert('Job posted successfully!'); // Show success message
+                // You can redirect or show a success message here
+            } catch (error) {
+                console.error('Error saving job:', error.response ? error.response.data : error.message); // Log any errors
+                alert('Error posting job. Please try again.'); // Show error message
+                // You can handle errors here, such as showing an error message to the user
+            }
+        });
+    </script>
+</body>
+</html>

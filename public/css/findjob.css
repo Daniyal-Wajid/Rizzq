@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header input[type="text"].search-input {
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+footer {
+    margin-top: 20px;
+    border-top: 5px solid #0056b3;
+}
+
+.scrollable {
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+/* Custom scrollbar styles */
+.scrollable::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.list-group-item {
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.02);
+}
+
+.card-header h5 {
+    margin: 0;
+}
+
+.btn-block {
+    margin-top: 20px;
+}
+
+.container .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}

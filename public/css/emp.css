@@ -1,0 +1,152 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f7;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    background-color: #fdfdfd;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+h3{
+    color: rgb(23, 18, 63);
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li .nav-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+header nav ul li .nav-btn:hover {
+    border: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+header nav ul li .home-btn {
+    background-color: #6c757d; /* Grey */
+}
+
+header nav ul li .post-job-btn {
+    background-color: #28a745; /* Green */
+}
+
+header nav ul li .hire-freelancer-btn {
+    background-color: #007bff; /* Blue */
+}
+
+header nav ul li .logout-btn {
+    background-color: #dc3545; /* Red */
+}
+
+/* Main content styling */
+main {
+    padding: 20px;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.welcome-section h2 {
+    font-size: 2em;
+    color: #2b3e50;
+}
+
+.welcome-section p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+/* Job management styling */
+.job-management {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.job-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.job-card h3 {
+    color: #2b3e50;
+    margin-bottom: 10px;
+}
+
+.job-card p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.update-btn, .delete-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 5px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.update-btn:hover, .delete-btn:hover {
+    opacity: 0.8;
+}
+
+/* Footer styling */
+footer {
+    background-color: #2b3e50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

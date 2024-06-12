@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard</title>
+    <link rel="stylesheet" href="/css/emp.css">
+    <script defer src="/js/emp.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/assets/rizzq.png" alt="Rizzq Logo">
+            <h3>JOB PORTAL</h3>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/" class="nav-btn home-btn">Home</a></li>
+                <li><a href="/postjob" class="nav-btn post-job-btn">Post a Job</a></li>
+                <li><a href="/hirefreelancer" class="nav-btn hire-freelancer-btn">Hire a Freelancer</a></li>
+                <li><a href="/login" class="nav-btn logout-btn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <h2>Welcome, Employer!</h2>
+            <p>Manage your job postings efficiently and effectively.</p>
+        </section>
+        <section class="job-management">
+            <% jobs.forEach(job => { %>
+            <div class="job-card" data-id="<%= job._id %>">
+                <h3><%= job.title %></h3>
+                <p class="description"><%= job.description %></p>
+                <button class="update-btn">Update Job</button>
+                <button class="delete-btn">Delete Job</button>
+            </div>
+            <% }) %>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Rizzq Job Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>

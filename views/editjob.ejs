@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Job</title>
+    <link rel="stylesheet" href="/css/edit.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Job</h1>
+        <form action="/jobs/<%= job._id %>?_method=PUT" method="POST">
+            <label for="title">Job Title</label>
+            <input type="text" id="title" name="title" value="<%= job.title %>" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required><%= job.description %></textarea>
+
+            <label for="skills">Skills</label>
+            <input type="text" id="skills" name="skills" value="<%= job.skills %>" required>
+
+            <label for="careerLevel">Career Level</label>
+            <input type="text" id="careerLevel" name="careerLevel" value="<%= job.careerLevel %>" required>
+
+            <label for="positions">Positions</label>
+            <input type="number" id="positions" name="positions" value="<%= job.positions %>" required>
+
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" value="<%= job.location %>" required>
+
+            <label for="qualification">Qualification</label>
+            <input type="text" id="qualification" name="qualification" value="<%= job.qualification %>" required>
+
+            <label for="experience">Experience</label>
+            <input type="number" id="experience" name="experience" value="<%= job.experience %>" required>
+
+            <label for="industry">Industry</label>
+            <input type="text" id="industry" name="industry" value="<%= job.industry %>" required>
+
+            <label for="salary">Salary</label>
+            <input type="number" id="salary" name="salary" value="<%= job.salary %>" required>
+
+            <label for="genderPreference">Gender Preference</label>
+            <input type="text" id="genderPreference" name="genderPreference" value="<%= job.genderPreference %>">
+
+            <label for="customQuestions">Custom Questions</label>
+            <input type="checkbox" id="customQuestions" name="customQuestions" <%= job.customQuestions ? 'checked' : '' %>>
+
+            <label for="authorize">Authorize</label>
+            <input type="checkbox" id="authorize" name="authorize" <%= job.authorize ? 'checked' : '' %> required>
+
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="continue-button">Update Job</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listing Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/findjob.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div class="container">
+            <h1>Job Listing Page</h1>
+            <input type="text" class="form-control mt-3 mx-auto search-input" placeholder="Search for jobs...">
+        </div>
+    </header>
+    <main class="container my-4">
+        <div class="row">
+            <aside class="col-md-3">
+                <div class="card mb-4" style="overflow-y: auto;">
+                    <div class="card-header">
+                        <h5>Filters</h5>
+                    </div>
+                    <div class="card-body scrollable">
+                        <form>
+                            <div class="form-group">
+                                <label for="min-salary">Min. Salary</label>
+                                <input type="number" class="form-control" id="min-salary" name="min-salary" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="job-title">Job Title</label>
+                                <input type="text" class="form-control" id="job-title" name="job-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city">
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">Experience</label>
+                                <input type="number" class="form-control" id="experience" name="experience" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="industry">Industry</label>
+                                <input type="text" class="form-control" id="industry" name="industry">
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Job Type</label>
+                                <input type="text" class="form-control" id="type" name="type">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+            <section class="col-md-6">
+                <h2>Jobs</h2>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">Customer Relationship Officer</h5>
+                        <p class="mb-1"><strong>Company:</strong> XYZ Pvt. Ltd.</p>
+                        <p class="mb-1"><strong>Location:</strong> Karachi, Pakistan</p>
+                        <p class="mb-1"><strong>Experience:</strong> 1-2 years</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">Content Writer / Social Media Manager</h5>
+                        <p class="mb-1"><strong>Company:</strong> ABC Ltd.</p>
+                        <p class="mb-1"><strong>Location:</strong> Lahore, Pakistan</p>
+                        <p class="mb-1"><strong>Experience:</strong> 3-5 years</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">Marketing Associate</h5>
+                        <p class="mb-1"><strong>Company:</strong> DEF Inc.</p>
+                        <p class="mb-1"><strong>Location:</strong> Islamabad, Pakistan</p>
+                        <p class="mb-1"><strong>Experience:</strong> 2-4 years</p>
+                    </a>
+                </div>
+            </section>
+            <aside class="col-md-3">
+                <div class="card mb-4" style="overflow-y: auto;">
+                    <div class="card-header">
+                        <h5>Create Alert</h5>
+                    </div>
+                    <div class="card-body scrollable">
+                        <form>
+                            <div class="form-group">
+                                <label for="keywords">Keywords</label>
+                                <input type="text" class="form-control" id="keywords" name="keywords">
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" id="location" name="location">
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">Experience Level</label>
+                                <select class="form-control" id="experience" name="experience">
+                                    <option value="entry">Entry</option>
+                                    <option value="mid">Mid</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="frequency">Alert Frequency</label>
+                                <input type="text" class="form-control" id="frequency" name="frequency">
+                            </div>
+                            <div class="form-group">
+                                <label for="industry-alert">Industry</label>
+                                <input type="text" class="form-control" id="industry-alert" name="industry-alert">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer class="bg-primary text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2024 Job Listing Page</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

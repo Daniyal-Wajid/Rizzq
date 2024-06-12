@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire freelancer</title>
+    <link rel="stylesheet" href="./css/postjob.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>HIRE THE BEST TALENT!</h1>
+        <p>Looking for assistance? Call: 0800-000-111 (RIZZQ)</p>
+        <form action="#">
+            <label for="project-title">Project Name*</label>
+            <input type="text" id="project-title" name="project-title" required>
+            
+            <label for="project-description">Project Description*</label>
+            <textarea id="project-description" name="project-description" required></textarea>
+            
+            <label for="skills">What skills are required for this job?*</label>
+            <input type="text" id="skills" name="skills" placeholder="e.g. PHP, SEO, Marketing" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="project-duration">Project Duration*</label>
+                    <select id="project-duration" name="project-duration" required>
+                        <option value="">Select Project Duration</option>
+                        <option value="Level 1">1 week</option>
+                        <option value="Level 2">2 weeks</option>
+                        <option value="Level 3">More than 2 weeks</option>
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="positions">Compensation*</label><br>
+                    <input type="number" id="positions" name="positions" value="" required>
+                </div>
+            </div>
+            
+            <label for="location">Job Location*</label>
+            <input type="text" id="location" name="location" placeholder="Select multiple cities" required>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Project Type">Project Type*</label><br>
+                    <select id="qualification" name="qualification" required>
+                        <option value="">Select project type</option>
+                        <option value="Onsite">Onsite</option>
+                        <option value="Home">Work from Home</option>
+                        <option value="HYbrid">Hybrid</option>
+                    </select>
+                </div>
+                
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="compensation-details">Compensation Details*</label><br>
+                    <input type="text" id="compensation-details" name="compensation details" placeholder="" required>
+                </div>
+            </div>
+            
+                <div class="form-group">
+                    <label for="industry">Choose industry*</label><br>
+                    <select id="industry" name="industry" required>
+                        <option value="">Choose industry</option>
+                        <option value="Gaming">Gaming</option>
+                        <option value="IT">IT</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Engineering">Engineering</option>
+                    </select>
+                </div>
+                
+            
+            <br>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salary-from">Minimum Hours per day?*</label><br>
+                    <select name="min-hours" id="min-hours"required>
+                    <option value="">Choose Hours</option>
+                    <option value="1 hour">1 hour</option>
+                    <option value="2 hour">2 hour</option>
+                    <option value="3 hour">3 hour</option>
+                    <option value="4 hour">4 hour</option>
+                    </select>
+                </div>
+            </div>
+            
+            <label for="gender-preference">Is there a gender preference for this job?</label>
+            <select id="gender-preference" name="gender-preference">
+                <option value="no-preference">No Preference</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="custom-questions" name="custom-questions">
+                <label for="custom-questions">Screen your applicants further with custom questions</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="authorize" name="authorize" required>
+                <label for="authorize">I authorize Rizzq.PK to post jobs of my company on its website.</label>
+            </div>
+                
+            <button type="submit" class="continue-button">Continue</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Rozee CV</title>
+    <link rel="stylesheet" href="./css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <img src="./assets/rizzq.png" alt="logo" width="80px" style="margin-left: 150px;">
+        <form class="signup-form">
+            <br><br>
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-email">Re-type Email Address</label>
+                <input type="email" id="confirm-email" name="confirm-email" placeholder="Re-type Email Address" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile-number">Mobile Number</label>
+                <div class="mobile-input">
+                    <select id="country-code" name="country-code">
+                        <option value="+92">+92</option>
+                        <option value="+93">+93</option>
+                        <option value="+94">+94</option>
+                        <option value="+95">+95</option>
+                    </select>
+                    <input type="text" id="mobile-code" name="mobile-code" placeholder="Code" required>
+                    <input type="text" id="mobile-number" name="mobile-number" placeholder="Mobile Number" required>
+                </div>
+            </div>
+            <button type="submit" class="btn">Create Account</button>
+            <p>Already have an account? <a href="./login.html">Login</a></p>
+        </form>
+    </div>
+</body>
+</html>
