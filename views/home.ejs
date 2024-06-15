@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizq</title>
+    <link rel="stylesheet" href="./css/Styles.css">
+</head>
+<body style="user-select: none;">
+    <nav style="display: flex;">
+        <img src="assets/rizzq.png" style="margin-top: 10px; height: 45px;" alt="Rizq">
+        <span style="font-size: 20px; margin-top: 15px; font-weight: bold; margin-left: 20px;">
+            <% if (user) { %> <%= user.username %> <% } %>
+        </span>
+        <ul
+            <% if (user && user.isEmployer) { %> 
+                class="logged-in-employer" 
+            <% } else if (user) { %> 
+                class="logged-in" 
+            <% } else { %> 
+                class="logged-out" 
+            <% } %> >
+            <li><a style="color: red;" href="#">Beware! Reported Companies</a></li>
+            <li><a href="./cvreview">Free CV review</a></li>
+            <li><a href="#">Mobile App</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">English <img style="height: 10px;" src="./assets/arrow.png" alt="arrow"></a>
+                <div class="dropdown-content">
+                    <a href="#">Urdu</a>
+                    <a href="#">Chinese</a>
+                </div>
+            </li>
+            <% if (!user) { %>
+                <li><a href="./login"><button class="btn-post">Login</button></a></li>
+                <li><a href="./signup"><button class="btn-hire">Sign-up</button></a></li>
+            <% } else { %>
+                <li><a href="./logout"><button id="logoutLink" class="btn-logout">Logout</button></a></li>
+            <% } %>
+    
+            <% if (user && !user.isEmployer) { %>
+                <li><a href="./UpdateProfile"><button class="btn-post">Update Profile</button></a></li>
+                <li><a href="./hirefreelancer"><button class="btn-hire">Applied Jobs</button></a></li>
+            <% } %>    
+            <% if (user && user.isEmployer) { %>
+                <li><a href="./postjob"><button class="btn-post">Post a Job</button></a></li>
+                <li><a href="./hirefreelancer"><button class="btn-hire">Hire a Freelancer</button></a></li>
+                <li><a href="./employers"><button class="btn-emp">Employers</button></a></li>
+            <% } %>
+        </ul>
+    </nav>
+
+        <br>
+    <div class="bg">
+        <div class="px-4 py-5 mb-5 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis" style="padding-top: 20px;" ><span style="color: white;">Find a job you </span><span style="color: red;">love.</span></h1>
+            <div class="col-lg-6 mx-auto">
+                <div style="padding-top:20px;  display: flex;">
+                  <form style="display: inline-flex;" id="search-form" action="/findjob/query" method="GET">
+                    <input type="text" class="search-field" id="search-input" name="search" placeholder="Search for jobs...">
+                    <button type="submit" class="btn-search">Search</button>
+                </form>
+                    
+                </div>
+              <div class="buttons" style="display: flex;">
+                <div>
+                    <button type="button" class=" Get-Started">Get Started</button><br> 
+                </div>
+                <div style="margin-left: 300px;">
+                    <button type="button" class="Second-Btn">Secondary</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div>
+        <div class="text-links">
+            <span class="freelance-text">Freelance Side Hustles - Make Extra Income</span>
+            <a style="font-weight:500; padding-left: 220px;" href="#">Hire a Freelancer</a>
+            <a style="padding-left: 2px;" href="#">View all Projects</a>
+        </div>
+        <hr>
+        <div style="padding-left: 160px;">
+            <div class="slider-container">
+                <div class="slider">
+                  <div class="card">
+                    <div>
+                        <h6>Web Developer</h6>
+                        <p>MERN Stack </p>
+                        <p style="color: green;">PKR 100,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Programming</p>
+                        <p class="tag">Server Deployment</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>Game Designer</h6>
+                        <p>UI/UX </p>
+                        <p style="color: green;">PKR 100,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Designing</p>
+                        <p class="tag">Computer Graphics</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>Java Developer</h6>
+                        <p>Full Stack </p>
+                        <p style="color: green;">PKR 80,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Programming</p>
+                        <p class="tag">DataBase</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>Graphic Designing</h6>
+                        <p>Video Editing</p>
+                        <p style="color: green;">PKR 50,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Video Editor</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>App Developer</h6>
+                        <p>Flutter</p>
+                        <p style="color: green;">PKR 150,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Programming</p>
+                        <p class="tag">Server Deployment</p>
+                        <p class="tag">Flutter Development</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>Accountant</h6>
+                        <p>ACCA</p>
+                        <p style="color: green;">PKR 90,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">Accounting</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                  <div class="card">
+                    <div>
+                        <h6>Teacher</h6>
+                        <p>Masters in Computer Science</p>
+                        <p style="color: green;">PKR 80,000 fixed</p>
+                    </div>
+                    <div class="TAG">
+                        <p class="tag">OOP</p>
+                        <p class="tag">DSA</p>
+                    </div>
+                    <a href="#" class="button">Project Details</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div style="margin-top: 50px; background-color: lightgray;">‎ </div>                                        
+    </div>
+    <div class="text-links">
+      <span style="padding-left: 450px;" class="freelance-text">Senior Management Jobs</span>
+      <a style="font-weight:500; padding-left: 400px;" href="#">View All</a>
+  </div>
+  <hr>
+  
+  <div class="carousel-wrapper">
+    <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="Carousel-card">
+                <img src="./assets/github.png" alt="github">
+                <h3>Senior Technical Pro...</h3>
+                <p>Rayymen Technologies ...</p>
+            </div>
+            <div class="Carousel-card">
+              <img src="./assets/github.png" alt="github">
+              <h3>Senior Technical Pro...</h3>
+              <p>Rayymen Technologies ...</p>
+          </div>
+          <div class="Carousel-card">
+            <img src="./assets/github.png" alt="github">
+            <h3>Senior Technical Pro...</h3>
+            <p>Rayymen Technologies ...</p>
+        </div>
+            <div class="Carousel-card">
+                <img src="./assets/google.png" alt="google">
+                <h3>Head of Administrati...</h3>
+                <p>SOS Pakistan</p>
+            </div>
+            <div class="Carousel-card">
+                <img src="./assets/shopify.png" alt="shopify">
+                <h3>Senior Architect</h3>
+                <p>Paragon City (Pvt.) Ltd</p>
+            </div>
+            <div class="Carousel-card">
+                <img src="./assets/dev sinc.png" alt="devsinc">
+                <h3>Regional Sales Mana...</h3>
+                <p>Style Styrofoam Industries</p>
+            </div>
+            <div class="Carousel-card">
+                <img src="./assets/activision-logo.png" alt="activision">
+                <h3>Senior D365 F&O De...</h3>
+                <p>Zones IT Solutions (Pvt ...</p>
+            </div>
+            <div class="Carousel-card">
+                <img src="./assets/apex.png" alt="apex">
+                <h3>Oracle Technical De...</h3>
+                <p>Avanza Solutions</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
+</div>
+
+
+    <div style="margin-top: 50px; background-color: lightgray;">‎ </div>
+
+    <div style="background-color: lightgray; display: flex;">
+      <div class="browse-jobs">
+        <div class="header" style="margin-top: 9px;">
+          <h2 style="font-size: 17px; margin-left: 10px;">Browse Jobs in Pakistan</h2>
+          <div class="tabs">
+              <a href="#" class="tab-link active" data-tab="by-industry">By Industry</a>
+              <a href="#" class="tab-link" data-tab="by-city">By City</a>
+              <a href="#" class="tab-link" data-tab="by-company">By Company</a>
+              <a href="#" class="tab-link" data-tab="by-function">By Function</a>
+          </div>
+      </div>
+      <hr>
+      <div class="content">
+          <div id="by-industry" class="tab-content active">
+              <ul class="job-list"></ul>
+          </div>
+          <div id="by-city" class="tab-content">
+              <ul class="job-list"></ul>
+          </div>
+          <div id="by-company" class="tab-content">
+              <ul class="job-list"></ul>
+          </div>
+          <div id="by-function" class="tab-content">
+              <ul class="job-list"></ul>
+          </div>
+      </div>
+      </div>
+      <div class="top-employers">
+        <div style="margin-left: 20px; margin-top: 15px; margin-right: 20px ;">
+          <div>
+            <span style="font-size: 18px;">Rizq Top Employers</span>
+            <a style="margin-left: 138px;" href="#">View All </a>
+            <img style="height: 20px; margin-left: 10px;" src="./assets/arrow-left.png" alt="right">
+            <img style="height: 20px;" src="./assets/arrow-right.png" alt="right">
+          </div>
+          <hr>
+        </div>
+        <div class="top-employer-container">
+          <div class="row">
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/activision-logo.png" alt="Sting Sports Logo">
+            </div>
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/github.png" alt="Nexverse Logo">
+            </div>
+          </div>
+          <div class="row">
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/google.png" alt="RSK Apparel Logo">
+            </div>
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+            </div>
+          </div>
+          <div class="row">
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/google.png" alt="RSK Apparel Logo">
+            </div>
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/google.png" alt="RSK Apparel Logo">
+            </div>
+            <div class="top-employer-card">
+              <img class="logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: lightgray;">‎ </div>
+
+    <div style="background-color: lightgray;">
+      <div class="premium-jobs">
+
+        <div style="padding-top: 30px; padding-left: 90px; padding-bottom: 20px;">
+          <img src="/assets/premium-badge-svgrepo-com.svg" style="height: 45px;" alt="">
+          <span style="font-size: 20px; font-weight:500;">Premium Select </span> <span style="font-size: 20px;"> Jobs in Pakistan</span>
+          <a href="" style="margin-left: 600px;">View All</a>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <button class="carousel-btn p" onclick="moveSlide(-1)">&#10094;</button>
+          <div class="carousel-container-premium">
+              <div class="carousel-premium">
+                  <div class="Carousel-card-premium">
+                      <img src="./assets/dev sinc.png" alt="company1">
+                      <h3>Tour Consultant</h3>
+                      <p>World Green Aviation Private...</p>
+                  </div>
+                  <div class="Carousel-card-premium">
+                    <img src="./assets/dev sinc.png" alt="company1">
+                    <h3>Tour Consultant</h3>
+                    <p>World Green Aviation Private...</p>
+                </div>
+                <div class="Carousel-card-premium">
+                  <img src="./assets/dev sinc.png" alt="company1">
+                  <h3>Tour Consultant</h3>
+                  <p>World Green Aviation Private...</p>
+              </div>
+                  <div class="Carousel-card-premium">
+                      <img src="./assets/Microsoft.png" style="width: 170px;" alt="company2">
+                      <h3>Assistant Professor...</h3>
+                      <p>Riphah International...</p>
+                  </div>
+                  <div class="Carousel-card-premium">
+                      <img src="./assets/google.png" alt="company3">
+                      <h3>Assistant Professor...</h3>
+                      <p>Riphah International...</p>
+                  </div>
+                  <div class="Carousel-card-premium">
+                      <img src="./assets/github.png" alt="company4">
+                      <h3>Assistant Professor...</h3>
+                      <p>Riphah International...</p>
+                  </div>
+                  <div class="Carousel-card-premium">
+                      <img src="./assets/apex.png" alt="company5">
+                      <h3>Internal Control...</h3>
+                      <p>United Nations Pakistan...</p>
+                  </div>
+              </div>
+          </div>
+          <button class="carousel-btn n" onclick="moveSlide(1)">&#10095;</button>
+      </div>  
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: lightgray;">‎ </div>
+
+    <div style="background-color: lightgray; display: flex;">
+      <div class="top-jobs">
+        <div style="margin-left: 20px; margin-top: 20px; margin-right: 20px ;">
+          <div style="margin-left: 20px; margin-top: 20px;">
+            <span style="font-size: 18px;">Top Jobs in Pakistan</span>
+            <a style="margin-left: 220px;" href="#">View All </a>
+            <img id="left-arrow" style="height: 20px; margin-left: 10px; cursor: pointer;" src="./assets/arrow-left.png" alt="left">
+            <img id="right-arrow" style="height: 20px; cursor: pointer;" src="./assets/arrow-right.png" alt="right">
+          </div>
+          <hr>
+        </div>
+        <div>
+<div style="display: flex; overflow-x: auto;">
+  <div class="column">
+    <div class="job">Job 1</div>
+    <div class="job">Job 2</div>
+    <div class="job">Job 3</div>
+    <div class="job">Job 4</div>
+  </div>
+  <div class="column">
+    <div class="job">Job 5</div>
+    <div class="job">Job 6</div>
+    <div class="job">Job 7</div>
+    <div class="job">Job 8</div>
+  </div>
+  <div class="column">
+    <div class="job">Job 5</div>
+    <div class="job">Job 6</div>
+    <div class="job">Job 7</div>
+    <div class="job">Job 8</div>
+  </div>
+
+  <div class="column">
+    <div class="job">Job 5</div>
+    <div class="job">Job 6</div>
+    <div class="job">Job 7</div>
+    <div class="job">Job 8</div>
+  </div>
+
+</div>
+        </div>
+      
+      </div>
+      <div class="channels">
+        <div style="padding: 35px 30px 0px 30px; display: inline-flex; justify-content: center;">
+          <div style="border: 1px solid lightgray; align-items: center; border-top-width: 0;border-left-width: 0;border-right-width: 0; border-bottom-width: 1px; text-align: center;">
+            <div>
+              <img class="job-img"src="./assets/Accountant.png" alt="">
+            </div>
+            <span>Accountant</span>
+          </div>
+          <div style="border: 1px solid lightgray; align-items: center; border-right-width: 0;border-top-width: 0; border-bottom-width: 1px; text-align: center;">
+            <div>
+              <img class="job-img" src="./assets/teacher.png" alt="">
+            </div>
+            <span>Teacher</span>
+          </div>
+          <div style="border: 1px solid lightgray; align-items: center; border-bottom-width: 1px;border-right-width: 0;border-top-width: 0; text-align: center;">
+            <div>
+              <img class="job-img" src="./assets/Healthcare.png" alt="">
+            </div>
+            <span>Healthcare</span>
+          </div>
+        </div>
+        <div style="padding: 0px 30px 0px 30px; display: inline-flex; justify-content: center;">
+          <div style="text-align: center; border: 1px solid lightgray; align-items: center; border-right-width: 0; border-bottom-width: 0;border-top-width: 0;border-left-width:0 ;">
+            <div>
+              <img class="job-img" src="./assets/Media.png" alt="">
+            </div>
+            <span>Media</span>
+          </div>
+          <div style="border: 1px solid lightgray; align-items: center; border-right-width: 0; border-bottom-width: 0;border-top-width: 0; text-align: center;">
+            <div>
+              <img class="job-img" src="./assets/women.png" alt="">
+            </div>
+            <span>Women</span>
+          </div>
+          <div style="text-align: center; border: 1px solid lightgray; align-items: center; border-right-width: 0; border-bottom-width: 0;border-top-width: 0;border-left-width:1 ;">
+            <div>
+              <img class="job-img" src="./assets/NGO.png" alt="">
+            </div>
+            <span>NGO</span>
+          </div>
+        </div>  
+      </div>
+      
+    </div>
+
+    <div style="background-color: lightgray;">‎ </div>
+
+    <div style="background-color: lightgray;">
+      <div class="cv" style="display: flex;">
+        <div style="margin-left: 20px;">
+          <img style="height: 370px;"  src="./assets/boost-job.png" alt="boost-job">
+        </div>
+        <div class="cv-review cv-btn" style="margin-left: 50px;"  onclick="">
+          <div style="padding: 40px; background-color: rgba(0, 150, 0, 45%); border-radius: 20px; margin-right: 10px; margin-top: 20px; width: 300px;">
+            <img src="./assets/cv-review.png" style="height: 80px;" alt="">
+            <br>
+            <span style="font-size: 25px;">Free CV Review</span>
+            <br>
+            <p>
+               Simplify the structure, emphasize achievements, tailor content to job specs, and polish for perfection.
+            </p>
+          </div>
+        </div>
+        <div class="cv-writing cv-btn" style="margin-left: 20px;" onclick="">
+          <div style="padding: 40px; background-color: rgba(138, 43, 226 , 45%); border-radius: 20px;  margin-top: 20px; width: 300px;">
+            <img src="./assets/write-cv.png" style="height: 80px;" alt="">
+            <br>
+            <span style="font-size: 25px;">CV Writing Service</span>
+            <p>
+              Crafting a standout CV? Simplify structure, highlight achievements, tailor content, and polish meticulously.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: lightgray;">‎ </div>
+
+    <div style="background-color: lightgray; display: flex;">
+      <div class="top-jobs" style="background-color: #ffffff">
+      <img style="height: 290px; margin-left: 15px; margin-top: 10px; ;" src="./assets/graduate-jobs.png" alt="">
+      </div>
+      <div class="channels">
+          <div style="margin-left: 20px; margin-top: 20px;">
+            <span style="font-size: 18px;">Featured Jobs in Pakistan</span>
+            <a style="margin-left: 180px;" href="#">View All </a>
+            <img id="left-arrow" style="height: 20px; margin-left: 10px; cursor: pointer;" src="./assets/arrow-left.png" alt="left">
+            <img id="right-arrow" style="height: 20px; cursor: pointer;" src="./assets/arrow-right.png" alt="right">
+          </div>
+          <hr>
+          <div>
+            <div class="featured-container">
+              <div class="featured-row">
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/activision-logo.png" alt="Sting Sports Logo">
+                </div>
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/github.png" alt="Nexverse Logo">
+                </div>
+              </div>
+              <div class="featured-row">
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/google.png" alt="RSK Apparel Logo">
+                </div>
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+                </div>
+              </div>
+              <div class="featured-row">
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/google.png" alt="RSK Apparel Logo">
+                </div>
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+                </div>
+              </div>
+    
+              <div class="featured-row">
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/google.png" alt="RSK Apparel Logo">
+                </div>
+                <div class="featured-card">
+                  <img class="featured-logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+                </div>
+              </div>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: lightgray;">‎ </div>
+
+    <footer>
+      <div class="footer-container">
+          <div class="footer-column">
+              <h3>Jobs by Functional Area</h3>
+              <ul >
+                  <li><a href="#">Sales & Business Development Jobs</a></li>
+                  <li><a href="#">Accounts, Finance & Financial Services Jobs</a></li>
+                  <li><a href="#">Software & Web Development Jobs</a></li>
+                  <li><a href="#">Client Services & Customer Support Jobs</a></li>
+                  <li><a href="#">Marketing Jobs</a></li>
+                  <li><a href="#">Telemarketing Jobs</a></li>
+                  <li><a href="#">Creative Design Jobs</a></li>
+                  <li><a href="#">Human Resources Jobs</a></li>
+                  <li><a href="#">Administration Jobs</a></li>
+                  <li><a href="#">Operations Jobs</a></li>
+                  <li><a href="#">Teachers/Education, Training & Development Jobs</a></li>
+                  <li><a href="#">Computer Networking Jobs</a></li>
+                  <li><a href="#">Engineering Jobs</a></li>
+                  <li><a href="#">Architects & Construction Jobs</a></li>
+              </ul>
+          </div>
+          <div class="footer-column">
+              <h3>Jobs By City</h3>
+              <ul>
+                  <li><a href="#">Jobs in Lahore</a></li>
+                  <li><a href="#">Jobs in Karachi</a></li>
+                  <li><a href="#">Jobs in Islamabad</a></li>
+                  <li><a href="#">Jobs in Rawalpindi</a></li>
+                  <li><a href="#">Jobs in Faisalabad</a></li>
+                  <li><a href="#">Jobs in Multan</a></li>
+                  <li><a href="#">Jobs in Gujranwala</a></li>
+                  <li><a href="#">Jobs in Quetta</a></li>
+                  <li><a href="#">Jobs in Peshawar</a></li>
+                  <li><a href="#">Jobs in Hyderabad Pakistan</a></li>
+                  <li><a href="#">Jobs in Sialkot</a></li>
+                  <li><a href="#">Jobs in Sargodha</a></li>
+                  <li><a href="#">Jobs in Gujrat</a></li>
+                  <li><a href="#">Jobs in Sheikhupura</a></li>
+                  <li><a href="#">Jobs in Bahawalpur</a></li>
+                  <li><a href="#">Jobs in Sahiwal</a></li>
+              </ul>
+          </div>
+          <div class="footer-column">
+              <h3>Jobs By Industry</h3>
+              <ul>
+                  <li><a href="#">Information Technology Jobs</a></li>
+                  <li><a href="#">Manufacturing Jobs</a></li>
+                  <li><a href="#">Services Jobs</a></li>
+                  <li><a href="#">Recruitment / Employment Firms Jobs</a></li>
+                  <li><a href="#">Call Center Jobs</a></li>
+                  <li><a href="#">Banking/Financial Services Jobs</a></li>
+                  <li><a href="#">Education/Training Jobs</a></li>
+                  <li><a href="#">BPO Jobs</a></li>
+                  <li><a href="#">Consultants Jobs</a></li>
+                  <li><a href="#">Real Estate/Property Jobs</a></li>
+                  <li><a href="#">N.G.O./Social Services Jobs</a></li>
+                  <li><a href="#">Healthcare / Hospital / Medical Jobs</a></li>
+                  <li><a href="#">E-Commerce / E- Business Jobs</a></li>
+                  <li><a href="#">Construction / Cement / Metals Jobs</a></li>
+                  <li><a href="#">Other Jobs</a></li>
+              </ul>
+          </div>
+          <div class="footer-column">
+              <h3>Job Seekers</h3>
+              <ul>
+                  <li><a href="#">British Council Online Placement Test</a></li>
+                  <li><a href="#">Top Professionals</a></li>
+                  <li><a href="#">CV Writing</a></li>
+                  <li><a href="#">Free CV Review</a></li>
+                  <li><a href="#">Success Stories</a></li>
+                  <li><a href="#">Contact Us</a></li>
+              </ul>
+              <h3>Employers</h3>
+              <ul>
+                  <li><a href="#">Create Account</a></li>
+                  <li><a href="#">Post a Job</a></li>
+                  <li><a href="#">Employer Products</a></li>
+                  <li><a href="#">Contact Sales</a></li>
+              </ul>
+          </div>
+          <div class="footer-column">
+              <h3>International Jobs</h3>
+              <ul>
+                  <li><a href="#">Jobs in Saudi Arabia</a></li>
+                  <li><a href="#">Jobs in Bahrain</a></li>
+                  <li><a href="#">Jobs in Qatar</a></li>
+                  <li><a href="#">Jobs in UAE</a></li>
+                  <li><a href="#">Jobs in Malaysia</a></li>
+              </ul>
+              <div class="social-media">
+                  <h3>Follow Us</h3>
+                  <ul>
+                      <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
+                      <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+                      <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+                  </ul>
+              </div>
+              <div class="download-app">
+                  <h3>Download Rozee App</h3>
+                  <ul>
+                      <li><a href="#"><img src="google-play.png" alt="Google Play"></a></li>
+                      <li><a href="#"><img src="app-store.png" alt="App Store"></a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy;2024 ROZEE - Jobs in Pakistan - All Rights Reserved. - A Division of Naseeb Networks, Inc.</p>
+          <ul>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms and Conditions</a></li>
+              <li><a href="#">Contact Sales</a></li>
+          </ul>
+      </div>
+  </footer>
+
+  <script>
+    document.getElementById('btn-search').addEventListener('click', function() {
+  window.location.href = '/findjob';
+});
+  </script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="./js/home.js"></script>
+</body>
+</html>

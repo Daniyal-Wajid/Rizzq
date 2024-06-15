@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/updateprofile.css">
+    <title>Update Profile</title>
+</head>
+<body>
+    <div class="container">
+        <form class="update-form" action="/updateprofile" method="POST">
+            <h2>Update Profile</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<%= user.username %>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= user.email %>" required>
+            </div>
+            <div class="form-group">
+                <label for="qualification">Qualification:</label>
+                <input type="text" id="qualification" name="qualification" value="<%= user.qualification %>" required>
+            </div>
+            <div class="form-group">
+                <label for="workExperience">Work Experience:</label>
+                <input type="number" id="workExperience" name="workExperience" value="<%= user.workExperience %>" required>
+            </div>
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <input type="text" id="skills" name="skills" value="<%= user.skills %>" required>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password (leave blank to keep current password):</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="isEmployer">Employer:</label>
+                <input type="checkbox" id="isEmployer" name="isEmployer" <%= user.isEmployer ? 'checked' : '' %> >
+            </div>
+            <div class="form-group">
+                <button type="submit" style="margin-left: 140px;" class="btn">Update Profile</button>
+            </div>
+        </form>
+
+        <form id="delete-form" action="/deleteaccount" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            <div class="form-group">
+                <button type="submit" style="background-color: rgb(190, 50, 50); margin-left: 140px;" class="btn btn-danger">Delete Account</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

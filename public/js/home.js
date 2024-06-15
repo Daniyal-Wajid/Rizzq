@@ -166,6 +166,3 @@ const jobSets = [
     window.location.href = '/login'; // Assuming '/login' is the route for your login page
 });
 
-document.getElementById('btn-search').addEventListener('click', function() {
-  window.location.href = '/findjob';
-});

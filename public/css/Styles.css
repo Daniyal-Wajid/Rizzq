@@ -40,6 +40,20 @@ a:hover {
     background-color:  #23292f;
 }
 
+.btn-logout{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 11px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 0 ;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    height: 35px;
+    background-color: rgb(190, 50, 50);
+}
+
 .btn-post{
     margin-top: 10px;
     font-weight: bold;
@@ -115,6 +129,31 @@ a:hover {
     transition:width=0.2s ease-in;
 }
 
+.logged-in-employer {
+    margin-left: 100px; 
+    list-style-type: none; 
+    padding: 0; 
+    text-align: center; 
+    font-size: 10px;
+}
+
+
+.logged-in {
+    margin-left: 170px; 
+    list-style-type: none; 
+    padding: 0; 
+    text-align: center; 
+    font-size: 10px;
+}
+
+.logged-out {
+    margin-left: 290px; 
+    list-style-type: none; 
+    padding: 0; 
+    text-align: center; 
+    font-size: 10px;
+
+}
 
 .dropdown {
     position: relative;
