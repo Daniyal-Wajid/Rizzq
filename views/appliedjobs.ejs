@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Jobs</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f7;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #343a40; /* Dark gray */
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            color: white;
+        }
+
+        header nav ul {
+            margin-left: 800px;
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+        header nav ul li .nav-btn {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 2px solid transparent;
+        }
+
+        header nav ul li .nav-btn:hover {
+            border: 2px solid white;
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent white */
+        }
+
+        header nav ul li .home-btn {
+            background-color: #6c757d; /* Grey */
+        }
+
+        header nav ul li .logout-btn {
+            background-color: #dc3545; /* Red */
+        }
+
+        /* Main content styling */
+        .container {
+            padding: 5px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 2em;
+            color: #2b3e50;
+        }
+
+        .content .job-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content .job-list .job {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content .job-list .job h5 {
+            color: #2b3e50;
+            margin-bottom: 10px;
+        }
+
+        .content .job-list .job p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #2b3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            border-top: 5px solid #0056b3;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div class="container">
+            <h1>Applied Jobs</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="nav-btn home-btn">Home</a></li>
+                    <li><a href="/logout" class="nav-btn logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-3">
+        <div class="row">
+            <section class="col-md-9">
+                <ul class="list-group">
+                    <% jobs.forEach(function(job) { %>
+                        <li style="margin-left: 250px;margin-bottom: 20px;" class="list-group-item job">
+                            <h5 class="mb-1"><%= job.title %></h5>
+                            <p class="mb-1"><strong>Description:</strong> <%= job.description %></p>
+                            <p class="mb-1"><strong>Skills:</strong> <%= job.skills %></p>
+                            <p class="mb-1"><strong>Career Level:</strong> <%= job.careerLevel %></p>
+                            <p class="mb-1"><strong>Location:</strong> <%= job.location %></p>
+                            <p class="mb-1"><strong>Qualification:</strong> <%= job.qualification %></p>
+                            <p class="mb-1"><strong>Experience:</strong> <%= job.experience %> years</p>
+                            <p class="mb-1"><strong>Industry:</strong> <%= job.industry %></p>
+                            <p class="mb-1"><strong>Salary:</strong> <%= job.salary %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer style="padding: 0px;" class="bg-primary text-white text-center">
+        <div class="container">
+            <p>&copy; 2024 Applied Jobs</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

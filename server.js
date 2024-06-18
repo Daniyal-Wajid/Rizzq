@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt'); // Include bcrypt module
+const AppliedJob = require('./models/AppliedJob'); // Adjust the path based on your project structure
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,23 +27,6 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-// Middleware to set user data in response locals
-app.use(async (req, res, next) => {
-    if (req.session.userId) {
-        try {
-            const user = await User.findById(req.session.userId);
-            if (user) {
-                res.locals.user = user;
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    } else {
-        res.locals.user = null; // Ensure user is null if not logged in
-    }
-    next();
-});
-
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/Jobs', {
     useNewUrlParser: true,
@@ -57,6 +41,7 @@ mongoose.connect('mongodb://localhost:27017/Jobs', {
 
 // Define your Job schema and model
 const jobSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     skills: { type: String, required: true },
@@ -87,12 +72,87 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// Middleware to set user data in response locals
+app.use(async (req, res, next) => {
+    if (req.session.userId) {
+        try {
+            const user = await User.findById(req.session.userId);
+            if (user) {
+                res.locals.user = user;
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    } else {
+        res.locals.user = null; // Ensure user is null if not logged in
+    }
+    next();
+});
+
+// Middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+    if (req.session.userId) {
+        next();
+    } else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
+}
+
+// Update the /appliedjobs route to fetch jobs applied by the current user
+app.get('/appliedjobs', async (req, res) => {
+    try {
+        // Fetch applied jobs for the logged-in user
+        const jobs = await AppliedJob.find({ userId: req.session.userId });
+
+        res.render('appliedjobs', { jobs }); // Render the appliedjobs.ejs template with jobs data
+    } catch (error) {
+        console.error('Error fetching applied jobs:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+app.get('/apply', async (req, res) => {
+    const jobId = req.query.jobId;
+    const userId = req.session.userId;
+
+    try {
+        // Assuming Job model exists and is imported similarly
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        const application = new AppliedJob({
+            userId: userId,
+            jobId: jobId,
+            title: job.title,
+            description: job.description,
+            skills: job.skills,
+            careerLevel: job.careerLevel,
+            positions: job.positions,
+            location: job.location,
+            qualification: job.qualification,
+            experience: job.experience,
+            industry: job.industry,
+            salary: job.salary,
+            genderPreference: job.genderPreference
+        });
+
+        await application.save();
+        res.redirect('/appliedjobs'); // Redirect to appliedjobs page after successful application
+    } catch (error) {
+        console.error('Error applying for job:', error);
+        res.status(500).send('Server error'); // Handle server error response
+    }
+});
+
+
 // GET route to render the update profile form
 app.get('/updateprofile', async (req, res) => {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
-    
+
     try {
         const user = await User.findById(req.session.userId);
         if (user) {
@@ -110,7 +170,7 @@ app.post('/updateprofile', async (req, res) => {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
-    
+
     try {
         const updateData = {
             username: req.body.username,
@@ -120,7 +180,7 @@ app.post('/updateprofile', async (req, res) => {
             skills: req.body.skills,
             isEmployer: req.body.isEmployer === 'on'
         };
-        
+
         if (req.body.password) {
             updateData.password = await bcrypt.hash(req.body.password, 10);
         }
@@ -136,7 +196,6 @@ app.post('/updateprofile', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 // POST route to handle deleting the user account
 app.post('/deleteaccount', async (req, res) => {
@@ -163,36 +222,28 @@ app.post('/deleteaccount', async (req, res) => {
     }
 });
 
-
 // Route to handle job form submission
-app.post('/jobs', async (req, res) => {
-  try {
-    const newJob = new Job(req.body);
-    const savedJob = await newJob.save();
-    res.status(201).json(savedJob);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
-app.get('/findjob', async (req, res) => {
+app.post('/jobs', isAuthenticated, async (req, res) => {
     try {
-        let query = {};
-        if (req.query.search) {
-            query = { $or: [{ description: { $regex: req.query.search, $options: 'i' } }] }; // Search by description
-        }
-        const jobs = await Job.find(query);
-        res.render('findjob', { jobs: jobs });
+        const jobData = {
+            ...req.body,
+            userId: req.session.userId // Associate job with the logged-in user
+        };
+
+        const newJob = new Job(jobData);
+        const savedJob = await newJob.save();
+        res.status(201).json(savedJob);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 });
 
+// Route to find jobs with a query
 app.get('/findjob/query', async (req, res) => {
     try {
         let query = {};
         if (req.query.search) {
-            query = { description: { $regex: req.query.search, $options: 'i' } }; // Search by description, case-insensitive
+            query = { description: { $regex: req.query.search, $options: 'i' } };
         }
         const jobs = await Job.find(query);
         res.render('findjob', { jobs: jobs });
@@ -201,8 +252,7 @@ app.get('/findjob/query', async (req, res) => {
     }
 });
 
-
-
+// Route to fetch a specific job
 app.get('/jobs/:id', async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
@@ -216,6 +266,7 @@ app.get('/jobs/:id', async (req, res) => {
     }
 });
 
+// Route to render the edit job page
 app.get('/jobs/:id/edit', async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
@@ -229,6 +280,7 @@ app.get('/jobs/:id/edit', async (req, res) => {
     }
 });
 
+// Route to update a job
 app.put('/jobs/:id', async (req, res) => {
     try {
         const updateData = {
@@ -259,6 +311,7 @@ app.put('/jobs/:id', async (req, res) => {
     }
 });
 
+// Route to delete a job
 app.delete('/jobs/:id', async (req, res) => {
     try {
         const deletedJob = await Job.findByIdAndDelete(req.params.id);
@@ -272,19 +325,22 @@ app.delete('/jobs/:id', async (req, res) => {
     }
 });
 
+// Signup route
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+// Login route
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { error: null });
 });
 
+// Home route
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-// User routes
+// User signup
 app.post('/signup', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -304,6 +360,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
+// User login
 app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
@@ -311,13 +368,14 @@ app.post('/login', async (req, res) => {
             req.session.userId = user._id;
             res.redirect('/');
         } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.render('login', { error: 'Invalid credentials' });
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).render('login', { error: error.message });
     }
 });
 
+// User logout
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -327,8 +385,7 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Existing routes for serving static files
-
+// Static file routes
 app.get('/hirefreelancer', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'hirefreelancer.html'));
 });
@@ -341,19 +398,16 @@ app.get('/postjob', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'postjob.html'));
 });
 
-app.get('/findjob', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'findjob.html'));
-});
-
-// Fetch all jobs and render employer dashboard with job data
-app.get('/employers', async (req, res) => {
+// Fetch jobs posted by the logged-in user and render the employer dashboard
+app.get('/employers', isAuthenticated, async (req, res) => {
     try {
-        const jobs = await Job.find({});
+        const jobs = await Job.find({ userId: req.session.userId });
         res.render('employers', { jobs });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 // Start the server
 app.listen(PORT, () => {

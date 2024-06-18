@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    skills: String,
-    careerLevel: String,
-    positions: Number,
-    location: String,
-    qualification: String,
-    experience: Number,
-    industry: String,
-    salary: Number,
-    genderPreference: String,
-    customQuestions: Boolean,
-    authorize: Boolean
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    skills: { type: String, required: true },
+    careerLevel: { type: String, required: true },
+    positions: { type: Number, required: true },
+    location: { type: String, required: true },
+    qualification: { type: String, required: true },
+    experience: { type: Number, required: true },
+    industry: { type: String, required: true },
+    salary: { type: Number, required: true },
+    genderPreference: { type: String },
+    customQuestions: { type: Boolean, default: false },
+    authorize: { type: Boolean, required: true }
 });
 
 const Job = mongoose.model('Job', jobSchema);

@@ -15,7 +15,6 @@
                 <input type="text" class="form-control mt-3 mx-auto search-input" id="search-input" name="search" placeholder="Search for jobs...">
                 <button type="submit" class="btn btn-light mt-3">Search</button>
             </form>
-            
         </div>
     </header>
     <main class="container my-4">
@@ -24,7 +23,7 @@
                 <h2 style="margin-left: 250px;">Jobs</h2>
                 <div style="margin-left: 250px;" class="list-group" id="job-list">
                     <% jobs.forEach(job => { %>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a style="margin-top:10px" href="#" class="list-group-item list-group-item-action">
                         <h5 class="mb-1"><%= job.title %></h5>
                         <p class="mb-1"><strong>Description:</strong> <%= job.description %></p>
                         <p class="mb-1"><strong>Skills:</strong> <%= job.skills %></p>
@@ -36,6 +35,7 @@
                         <p class="mb-1"><strong>Industry:</strong> <%= job.industry %></p>
                         <p class="mb-1"><strong>Salary:</strong> <%= job.salary %></p>
                         <p class="mb-1"><strong>Gender Preference:</strong> <%= job.genderPreference %></p>
+                        <a href="/apply?jobId=<%= job._id %>" class="btn btn-primary btn-sm">Apply to Job</a>
                     </a>
                     <% }) %>
                 </div>
@@ -51,50 +51,49 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-document.getElementById('search-form').addEventListener('submit', function(event) {
-    const searchQuery = document.getElementById('search-input').value.trim();
-    
-    // Fetch jobs based on search query
-    fetch(`/findjob?search=${encodeURIComponent(searchQuery)}`)
-        .then(response => response.json())
-        .then(jobs => {
-            const jobList = document.getElementById('job-list');
-            jobList.innerHTML = ''; // Clear existing job list
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        const searchQuery = document.getElementById('search-input').value.trim();
+        
+        // Fetch jobs based on search query
+        fetch(`/findjob?search=${encodeURIComponent(searchQuery)}`)
+            .then(response => response.json())
+            .then(jobs => {
+                const jobList = document.getElementById('job-list');
+                jobList.innerHTML = ''; // Clear existing job list
 
-            // Filter jobs where description contains search query
-            jobs.forEach(job => {
-                if (job.description.toLowerCase().includes(searchQuery.toLowerCase())) {
-                    const listItem = document.createElement('a');
-                    listItem.setAttribute('href', '#');
-                    listItem.classList.add('list-group-item', 'list-group-item-action');
-                    listItem.innerHTML = `
-                        <h5 class="mb-1">${job.title}</h5>
-                        <p class="mb-1"><strong>Description:</strong> ${job.description}</p>
-                        <p class="mb-1"><strong>Skills:</strong> ${job.skills}</p>
-                        <p class="mb-1"><strong>Career Level:</strong> ${job.careerLevel}</p>
-                        <p class="mb-1"><strong>Positions:</strong> ${job.positions}</p>
-                        <p class="mb-1"><strong>Location:</strong> ${job.location}</p>
-                        <p class="mb-1"><strong>Qualification:</strong> ${job.qualification}</p>
-                        <p class="mb-1"><strong>Experience:</strong> ${job.experience} years</p>
-                        <p class="mb-1"><strong>Industry:</strong> ${job.industry}</p>
-                        <p class="mb-1"><strong>Salary:</strong> ${job.salary}</p>
-                        <p class="mb-1"><strong>Gender Preference:</strong> ${job.genderPreference}</p>
-                    `;
-                    jobList.appendChild(listItem);
+                jobs.forEach(job => {
+                    if (job.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+                        const listItem = document.createElement('a');
+                        listItem.setAttribute('href', '#');
+                        listItem.classList.add('list-group-item', 'list-group-item-action');
+                        listItem.innerHTML = `
+                            <h5 class="mb-1">${job.title}</h5>
+                            <p class="mb-1"><strong>Description:</strong> ${job.description}</p>
+                            <p class="mb-1"><strong>Skills:</strong> ${job.skills}</p>
+                            <p class="mb-1"><strong>Career Level:</strong> ${job.careerLevel}</p>
+                            <p class="mb-1"><strong>Positions:</strong> ${job.positions}</p>
+                            <p class="mb-1"><strong>Location:</strong> ${job.location}</p>
+                            <p class="mb-1"><strong>Qualification:</strong> ${job.qualification}</p>
+                            <p class="mb-1"><strong>Experience:</strong> ${job.experience} years</p>
+                            <p class="mb-1"><strong>Industry:</strong> ${job.industry}</p>
+                            <p class="mb-1"><strong>Salary:</strong> ${job.salary}</p>
+                            <p class="mb-1"><strong>Gender Preference:</strong> ${job.genderPreference}</p>
+                            <a href="/apply?jobId=${job._id}" class="btn btn-primary btn-sm">Apply to Job</a>
+                        `;
+                        jobList.appendChild(listItem);
+                    }
+                });
+
+                if (jobList.children.length === 0) {
+                    const noResultsItem = document.createElement('div');
+                    noResultsItem.classList.add('list-group-item', 'text-muted');
+                    noResultsItem.textContent = 'No jobs found matching your search criteria.';
+                    jobList.appendChild(noResultsItem);
                 }
-            });
-
-            if (jobList.children.length === 0) {
-                const noResultsItem = document.createElement('div');
-                noResultsItem.classList.add('list-group-item', 'text-muted');
-                noResultsItem.textContent = 'No jobs found matching your search criteria.';
-                jobList.appendChild(noResultsItem);
-            }
-        })
-        .catch(error => console.error('Error fetching jobs:', error));
-        window.location.href = `/findjob/query?search=${encodeURIComponent(searchQuery)}`;
-});
+            })
+            .catch(error => console.error('Error fetching jobs:', error));
+            window.location.href = `/findjob/query?search=${encodeURIComponent(searchQuery)}`;
+    });
     </script>
-    
 </body>
 </html>

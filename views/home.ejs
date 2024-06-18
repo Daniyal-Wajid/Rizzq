@@ -39,11 +39,11 @@
     
             <% if (user && !user.isEmployer) { %>
                 <li><a href="./UpdateProfile"><button class="btn-post">Update Profile</button></a></li>
-                <li><a href="./hirefreelancer"><button class="btn-hire">Applied Jobs</button></a></li>
+                <li><a href="./appliedjobs"><button class="btn-hire">Applied Jobs</button></a></li>
             <% } %>    
             <% if (user && user.isEmployer) { %>
+              <li><a href="./UpdateProfile"><button class="btn-hire">Update Profile</button></a></li>
                 <li><a href="./postjob"><button class="btn-post">Post a Job</button></a></li>
-                <li><a href="./hirefreelancer"><button class="btn-hire">Hire a Freelancer</button></a></li>
                 <li><a href="./employers"><button class="btn-emp">Employers</button></a></li>
             <% } %>
         </ul>

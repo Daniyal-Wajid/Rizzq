@@ -11,6 +11,9 @@
         <div class="login-form">
             <img src="./assets/rizzq.png" alt="rizzq.pk logo" class="logo">
             <h1>Login</h1>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %>
             <form action="/login" method="POST">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" placeholder="Enter email" required>
