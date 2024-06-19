@@ -10,12 +10,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
+    "axios": "^1.7.2",
+    "axios-retry": "^4.4.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "mailchimp-api-v3": "^1.15.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.4.1",
     "nodemon": "^3.1.3"

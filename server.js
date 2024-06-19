@@ -10,6 +10,7 @@ const AppliedJob = require('./models/AppliedJob'); // Adjust the path based on y
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -111,15 +112,20 @@ app.get('/appliedjobs', async (req, res) => {
     }
 });
 
-app.get('/apply', async (req, res) => {
+app.get('/apply', isAuthenticated, async (req, res) => {
     const jobId = req.query.jobId;
     const userId = req.session.userId;
 
     try {
-        // Assuming Job model exists and is imported similarly
         const job = await Job.findById(jobId);
         if (!job) {
             return res.status(404).send('Job not found');
+        }
+
+        const existingApplication = await AppliedJob.findOne({ userId: userId, jobId: jobId });
+        if (existingApplication) {
+            const jobs = await Job.find({});
+            return res.render('findjob', { jobs, error: 'You have already applied for this job' });
         }
 
         const application = new AppliedJob({
@@ -139,12 +145,13 @@ app.get('/apply', async (req, res) => {
         });
 
         await application.save();
-        res.redirect('/appliedjobs'); // Redirect to appliedjobs page after successful application
+        res.redirect('/appliedjobs');
     } catch (error) {
         console.error('Error applying for job:', error);
-        res.status(500).send('Server error'); // Handle server error response
+        res.status(500).send('Server error');
     }
 });
+
 
 
 // GET route to render the update profile form
@@ -246,9 +253,28 @@ app.get('/findjob/query', async (req, res) => {
             query = { description: { $regex: req.query.search, $options: 'i' } };
         }
         const jobs = await Job.find(query);
-        res.render('findjob', { jobs: jobs });
+        res.render('findjob',{ jobs: jobs });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/applied-jobs-with-applicants', async (req, res) => {
+    try {
+        const appliedJobs = await AppliedJob.find()
+            .populate({
+                path: 'userId',
+                select: 'username email qualification workExperience skills'
+            })
+            .populate({
+                path: 'jobId',
+                select: 'title description skills careerLevel location qualification experience industry salary'
+            });
+
+        res.render('applicant', { appliedJobs });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
     }
 });
 
