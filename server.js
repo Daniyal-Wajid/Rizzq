@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const bcrypt = require('bcrypt'); // Include bcrypt module
 const AppliedJob = require('./models/AppliedJob'); // Adjust the path based on your project structure
 const multer = require('multer');
+const sendMail = require('./mailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,16 +58,14 @@ const upload = multer({
 });
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/Jobs', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect('mongodb://localhost:27017/Jobs')
     .then(() => {
         console.log('Connected to MongoDB');
     })
     .catch(err => {
         console.error('Failed to connect to MongoDB', err);
     });
+
 
 // Define your Job schema and model
 const jobSchema = new mongoose.Schema({
@@ -151,6 +150,11 @@ app.get('/apply', isAuthenticated, async (req, res) => {
             return res.status(404).send('Job not found');
         }
 
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
         const existingApplication = await AppliedJob.findOne({ userId: userId, jobId: jobId });
         if (existingApplication) {
             const jobs = await Job.find({});
@@ -174,6 +178,12 @@ app.get('/apply', isAuthenticated, async (req, res) => {
         });
 
         await application.save();
+
+        // Send email notification to the user
+        const subject = `Application Received for ${job.title}`;
+        const text = `Dear ${user.username},\n\nThank you for applying for the ${job.title} position. We have received your application and will review it soon.\n\nBest regards,\nRizzq Team`;
+        await sendMail(user.email, subject, text);
+
         res.redirect('/appliedjobs');
     } catch (error) {
         console.error('Error applying for job:', error);
@@ -424,8 +434,14 @@ app.get('/login', (req, res) => {
 });
 
 // Home route
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch all jobs or limit as required
+        res.render('home', { jobs });  // Pass the jobs to the EJS template
+    } catch (error) {
+        console.error('Failed to fetch jobs', error);
+        res.status(500).send('Server error');
+    }
 });
 
 app.post('/signup', upload.single('cv'), async (req, res) => {
@@ -441,15 +457,21 @@ app.post('/signup', upload.single('cv'), async (req, res) => {
             isEmployer: req.body.isEmployer === 'on',
             cv: req.file ? req.file.path : null // Save CV file path if uploaded
         });
+
         console.log('File uploaded:', req.file);
         const savedUser = await user.save();
+
+        // Send welcome email
+        const subject = 'Welcome to Rizzq!';
+        const text = `Hi ${user.username},\n\nThank you for signing up at Rizzq. We are excited to have you on board.\n\nBest regards,\nRizzq Team`;
+        await sendMail(user.email, subject, text);
+
         res.redirect('/login');
     } catch (error) {
         console.error(error);
         res.status(400).json({ message: error.message });
     }
 });
-
 
 // User login
 app.post('/login', async (req, res) => {

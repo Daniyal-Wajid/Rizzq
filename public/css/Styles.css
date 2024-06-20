@@ -213,69 +213,56 @@ a:hover {
 }
 
 .slider-container {
-    width: 82%;
-    overflow: hidden;
-    position: relative;
-}
-  
-/* Slider */
-.slider {
-    display: inline-flex;
-    transition: transform 0.5s ease;
-}
-  
-/* Card */
-.card {
-    width: 200px; /* Adjust as needed */
-    height: 300px; /* Fixed height */
-    margin: 0 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
+    width: 100%; /* Full width of the parent container */
+    overflow-x: auto; /* Enable horizontal scrolling */
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    white-space: nowrap;
+    position: relative;
+    border: 1px solid #ddd; /* Optional: Add a border for better visualization */
+  }
+  
+  .slider {
+    display: flex; /* Ensure cards are aligned horizontally */
+    gap: 10px;
+  }
+  
+  .card {
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Aligns content to the top and bottom */
-}
-
-
-/* Button */
-.button {
-    font-size: smaller;
+    text-align: center;
+    background-color: white;
+  }
+  
+  .card h6 {
+    margin: 10px 0;
+  }
+  
+  .button {
+    display: block;
+    margin-top: 10px;
     padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: blue;
+    color: white;
     text-align: center;
     text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-}
-
-
-.tag
-{
-    display: flexbox;
-    border: 1px;
-    border-color: #0004ff;
-    border-radius: 15px;
-    background-color: #86b6ed;
-    width: fit-content;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    font-size: smaller;
-    
-}
-
+  }
+  
+  /* Custom scrollbar styling */
+  .slider-container::-webkit-scrollbar {
+    height: 10px; /* Height of the scrollbar */
+  }
+  
+  .slider-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Roundness of the scrollbar thumb */
+  }
+  
+  .slider-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color when hovered */
+  }
+  
 .card p{
     font-size: 13px;
 }
@@ -522,9 +509,10 @@ a:hover {
     margin-left: 60px;
     height: 300px;
     width: 630px;
-    background-color: #f4f4f4;
+    background-color: white;
 
 }
+
 
 .top-employers{
     background-color: #f4f4f4;
@@ -700,7 +688,7 @@ a:hover {
 }
 
 .carousel-premium {
-    padding-left: 10px;
+    padding-left: 40px;
     display: flex;
     transition: transform 0.5s ease;
 }
