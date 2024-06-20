@@ -76,95 +76,23 @@
             <a style="padding-left: 2px;" href="#">View all Projects</a>
         </div>
         <hr>
-        <div style="padding-left: 160px;">
-            <div class="slider-container">
-                <div class="slider">
-                  <div class="card">
-                    <div>
-                        <h6>Web Developer</h6>
-                        <p>MERN Stack </p>
-                        <p style="color: green;">PKR 100,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Programming</p>
-                        <p class="tag">Server Deployment</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
+        <div style="padding-left: 120px; padding-right: 120px;">
+          <div class="slider-container">
+            <div class="slider">
+              <% jobs.forEach(function(job) { %>
+                <div class="card">
+                  <div>
+                    <h6><%= job.title %></h6>
+                    <p><%= job.description %></p>
+                    <p style="color: green;">PKR <%= job.salary %> fixed</p>
                   </div>
-                  <div class="card">
-                    <div>
-                        <h6>Game Designer</h6>
-                        <p>UI/UX </p>
-                        <p style="color: green;">PKR 100,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Designing</p>
-                        <p class="tag">Computer Graphics</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
-                  <div class="card">
-                    <div>
-                        <h6>Java Developer</h6>
-                        <p>Full Stack </p>
-                        <p style="color: green;">PKR 80,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Programming</p>
-                        <p class="tag">DataBase</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
-                  <div class="card">
-                    <div>
-                        <h6>Graphic Designing</h6>
-                        <p>Video Editing</p>
-                        <p style="color: green;">PKR 50,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Video Editor</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
-                  <div class="card">
-                    <div>
-                        <h6>App Developer</h6>
-                        <p>Flutter</p>
-                        <p style="color: green;">PKR 150,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Programming</p>
-                        <p class="tag">Server Deployment</p>
-                        <p class="tag">Flutter Development</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
-                  <div class="card">
-                    <div>
-                        <h6>Accountant</h6>
-                        <p>ACCA</p>
-                        <p style="color: green;">PKR 90,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">Accounting</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
-                  <div class="card">
-                    <div>
-                        <h6>Teacher</h6>
-                        <p>Masters in Computer Science</p>
-                        <p style="color: green;">PKR 80,000 fixed</p>
-                    </div>
-                    <div class="TAG">
-                        <p class="tag">OOP</p>
-                        <p class="tag">DSA</p>
-                    </div>
-                    <a href="#" class="button">Project Details</a>
-                  </div>
+                  <a href="/findjob/query" class="button">Project Details</a>
                 </div>
-              </div>
+              <% }); %>
+            </div>
+          </div>
         </div>
+      
         <div style="margin-top: 50px; background-color: lightgray;">‎ </div>                                        
     </div>
     <div class="text-links">
@@ -172,55 +100,56 @@
       <a style="font-weight:500; padding-left: 400px;" href="#">View All</a>
   </div>
   <hr>
-  
+
   <div class="carousel-wrapper">
     <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
     <div class="carousel-container">
-        <div class="carousel">
-            <div class="Carousel-card">
-                <img src="./assets/github.png" alt="github">
-                <h3>Senior Technical Pro...</h3>
-                <p>Rayymen Technologies ...</p>
-            </div>
-            <div class="Carousel-card">
-              <img src="./assets/github.png" alt="github">
-              <h3>Senior Technical Pro...</h3>
-              <p>Rayymen Technologies ...</p>
-          </div>
-          <div class="Carousel-card">
-            <img src="./assets/github.png" alt="github">
-            <h3>Senior Technical Pro...</h3>
-            <p>Rayymen Technologies ...</p>
+      <div class="carousel">
+        <div class="Carousel-card">
+          <img src="./assets/hp.png" alt="Hp">
+          <h3>Graphic Designer</h3>
+          <p>Hp Technologies</p>
         </div>
-            <div class="Carousel-card">
-                <img src="./assets/google.png" alt="google">
-                <h3>Head of Administrati...</h3>
-                <p>SOS Pakistan</p>
-            </div>
-            <div class="Carousel-card">
-                <img src="./assets/shopify.png" alt="shopify">
-                <h3>Senior Architect</h3>
-                <p>Paragon City (Pvt.) Ltd</p>
-            </div>
-            <div class="Carousel-card">
-                <img src="./assets/dev sinc.png" alt="devsinc">
-                <h3>Regional Sales Mana...</h3>
-                <p>Style Styrofoam Industries</p>
-            </div>
-            <div class="Carousel-card">
-                <img src="./assets/activision-logo.png" alt="activision">
-                <h3>Senior D365 F&O De...</h3>
-                <p>Zones IT Solutions (Pvt ...</p>
-            </div>
-            <div class="Carousel-card">
-                <img src="./assets/apex.png" alt="apex">
-                <h3>Oracle Technical De...</h3>
-                <p>Avanza Solutions</p>
-            </div>
+        <div class="Carousel-card">
+          <img src="./assets/bmw.jfif" alt="bmw">
+          <h3>Senior Analyst</h3>
+          <p>BMW</p>
         </div>
+        <div class="Carousel-card">
+          <img src="./assets/github.png" alt="github">
+          <h3>Senior Technical</h3>
+          <p>Github</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/google.png" alt="google">
+          <h3>Administrator</h3>
+          <p>SOS Pakistan</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/shopify.png" alt="shopify">
+          <h3>Architect</h3>
+          <p>Shopify</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/garena.png" alt="garena">
+          <h3>Regional Sales</h3>
+          <p>Garena</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/activision-logo.png" alt="activision">
+          <h3>Designer</h3>
+          <p>IT Solutions </p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/apex.png" alt="apex">
+          <h3>Oracle Expert</h3>
+          <p>Avanza Solutions</p>
+        </div>
+      </div>
     </div>
     <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
-</div>
+  </div>
+  
 
 
     <div style="margin-top: 50px; background-color: lightgray;">‎ </div>
@@ -228,30 +157,36 @@
     <div style="background-color: lightgray; display: flex;">
       <div class="browse-jobs">
         <div class="header" style="margin-top: 9px;">
-          <h2 style="font-size: 17px; margin-left: 10px;">Browse Jobs in Pakistan</h2>
-          <div class="tabs">
-              <a href="#" class="tab-link active" data-tab="by-industry">By Industry</a>
-              <a href="#" class="tab-link" data-tab="by-city">By City</a>
-              <a href="#" class="tab-link" data-tab="by-company">By Company</a>
-              <a href="#" class="tab-link" data-tab="by-function">By Function</a>
-          </div>
-      </div>
-      <hr>
-      <div class="content">
-          <div id="by-industry" class="tab-content active">
-              <ul class="job-list"></ul>
-          </div>
-          <div id="by-city" class="tab-content">
-              <ul class="job-list"></ul>
-          </div>
-          <div id="by-company" class="tab-content">
-              <ul class="job-list"></ul>
-          </div>
-          <div id="by-function" class="tab-content">
-              <ul class="job-list"></ul>
-          </div>
-      </div>
-      </div>
+            <h2 style="font-size: 17px; margin-left: 10px;">Browse Jobs in Pakistan</h2>
+            <div class="tabs">
+                <a href="#" class="tab-link" data-tab="by-industry">By Industry</a>
+                <a href="#" class="tab-link" data-tab="by-city">By City</a>
+                <a href="#" class="tab-link" data-tab="by-company">By Company</a>
+                <a href="#" class="tab-link" data-tab="by-function">By Function</a>
+            </div>
+        </div>
+        <hr>
+        <div class="content" style="margin-left: 10px;">
+            <div id="by-industry" class="tab-content active">
+                <ul class="job-list">
+                    <li>
+                        <h5>Software Engineer at Tech Innovators</h5>
+                        <p>Develop and maintain software applications. Requires proficiency in Java, Python, and SQL.</p>
+                      
+                      </li>
+                    <li>
+                        <h5>Graphic Designer at Creative Solutions</h5>
+                        <p>Create visual concepts to communicate ideas. Requires expertise in Adobe Creative Suite.</p>
+                    </li>
+                    <li>
+                        <h5>Marketing Specialist at AdWorld</h5>
+                        <p>Plan and execute marketing strategies. Requires experience in digital marketing and analytics.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
       <div class="top-employers">
         <div style="margin-left: 20px; margin-top: 15px; margin-right: 20px ;">
           <div>
@@ -281,19 +216,19 @@
           </div>
           <div class="row">
             <div class="top-employer-card">
-              <img class="logo" src="./assets/google.png" alt="RSK Apparel Logo">
+              <img class="logo" src="./assets/hp.png" alt="Hp">
             </div>
             <div class="top-employer-card">
-              <img class="logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+              <img class="logo" src="./assets/bmw.jfif" alt="BMW">
             </div>
           </div>
 
           <div class="row">
             <div class="top-employer-card">
-              <img class="logo" src="./assets/google.png" alt="RSK Apparel Logo">
+              <img class="logo" src="./assets/garena.png" alt="Garena">
             </div>
             <div class="top-employer-card">
-              <img class="logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+              <img class="logo" src="./assets/apex.png" alt="Pasari Org Logo">
             </div>
           </div>
 
@@ -316,40 +251,36 @@
           <div class="carousel-container-premium">
               <div class="carousel-premium">
                   <div class="Carousel-card-premium">
-                      <img src="./assets/dev sinc.png" alt="company1">
-                      <h3>Tour Consultant</h3>
-                      <p>World Green Aviation Private...</p>
+                      <img src="./assets/google.png" alt="company1">
+                      <h3>Google</h3>
+                      <p>World to Google</p>
                   </div>
                   <div class="Carousel-card-premium">
-                    <img src="./assets/dev sinc.png" alt="company1">
-                    <h3>Tour Consultant</h3>
-                    <p>World Green Aviation Private...</p>
+                    <img src="./assets/hp.png" alt="company1">
+                    <h3>HP</h3>
+                    <p>Hp tecnologies</p>
                 </div>
                 <div class="Carousel-card-premium">
-                  <img src="./assets/dev sinc.png" alt="company1">
-                  <h3>Tour Consultant</h3>
-                  <p>World Green Aviation Private...</p>
+                  <img src="./assets/shopify.png" alt="company1">
+                  <h3>Shopify Store</h3>
+                  <p>Ecommerce platform</p>
               </div>
                   <div class="Carousel-card-premium">
                       <img src="./assets/Microsoft.png" style="width: 170px;" alt="company2">
-                      <h3>Assistant Professor...</h3>
-                      <p>Riphah International...</p>
+                      <h3>Microsoft</h3>
+                      <p>Windows Master</p>
                   </div>
                   <div class="Carousel-card-premium">
-                      <img src="./assets/google.png" alt="company3">
-                      <h3>Assistant Professor...</h3>
-                      <p>Riphah International...</p>
+                      <img src="./assets/bmw.jfif" alt="company3">
+                      <h3>BMW</h3>
+                      <p>Luxury Cars</p>
                   </div>
                   <div class="Carousel-card-premium">
                       <img src="./assets/github.png" alt="company4">
-                      <h3>Assistant Professor...</h3>
-                      <p>Riphah International...</p>
+                      <h3>Github</h3>
+                      <p>Sharing Tool</p>
                   </div>
-                  <div class="Carousel-card-premium">
-                      <img src="./assets/apex.png" alt="company5">
-                      <h3>Internal Control...</h3>
-                      <p>United Nations Pakistan...</p>
-                  </div>
+                 
               </div>
           </div>
           <button class="carousel-btn n" onclick="moveSlide(1)">&#10095;</button>
@@ -372,34 +303,19 @@
           <hr>
         </div>
         <div>
-<div style="display: flex; overflow-x: auto;">
-  <div class="column">
-    <div class="job">Job 1</div>
-    <div class="job">Job 2</div>
-    <div class="job">Job 3</div>
-    <div class="job">Job 4</div>
-  </div>
-  <div class="column">
-    <div class="job">Job 5</div>
-    <div class="job">Job 6</div>
-    <div class="job">Job 7</div>
-    <div class="job">Job 8</div>
-  </div>
-  <div class="column">
-    <div class="job">Job 5</div>
-    <div class="job">Job 6</div>
-    <div class="job">Job 7</div>
-    <div class="job">Job 8</div>
-  </div>
-
-  <div class="column">
-    <div class="job">Job 5</div>
-    <div class="job">Job 6</div>
-    <div class="job">Job 7</div>
-    <div class="job">Job 8</div>
-  </div>
-
-</div>
+          <div style="display: flex; overflow-x: auto;">
+            <% jobs.forEach((job, index) => { %>
+              <% if (index % 4 === 0) { %>
+                <div class="column">
+              <% } %>
+                  <div class="job">
+                    <%= job.title %>
+                  </div>
+              <% if (index % 4 === 3 || index === jobs.length - 1) { %>
+                </div>
+              <% } %>
+            <% }); %>
+          </div>
         </div>
       
       </div>
@@ -513,19 +429,19 @@
               </div>
               <div class="featured-row">
                 <div class="featured-card">
-                  <img class="featured-logo" src="./assets/google.png" alt="RSK Apparel Logo">
+                  <img class="featured-logo" src="./assets/hp.png" alt="hp Logo">
                 </div>
                 <div class="featured-card">
-                  <img class="featured-logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+                  <img class="featured-logo" src="./assets/bmw.jfif" alt="bmw Logo">
                 </div>
               </div>
     
               <div class="featured-row">
                 <div class="featured-card">
-                  <img class="featured-logo" src="./assets/google.png" alt="RSK Apparel Logo">
+                  <img class="featured-logo" src="./assets/garena.png" alt="Garena Logo">
                 </div>
                 <div class="featured-card">
-                  <img class="featured-logo" src="./assets/shopify.png" alt="Pasari Org Logo">
+                  <img class="featured-logo" src="./assets/apex.png" alt="Apex Logo">
                 </div>
               </div>
     
@@ -628,16 +544,16 @@
               <div class="social-media">
                   <h3>Follow Us</h3>
                   <ul>
-                      <li><a href="#"><img src="facebook-icon.png" alt="Facebook"></a></li>
-                      <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
-                      <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+                      <li><a href="#"><img src="./assets/fb.png" alt="Facebook"></a></li>
+                      <li><a href="#"><img src="./assets/twitter.png" alt="Twitter"></a></li>
+                      <li><a href="#"><img src="./assets/insta.jfif" alt="Instagram"></a></li>
                   </ul>
               </div>
               <div class="download-app">
                   <h3>Download Rozee App</h3>
                   <ul>
-                      <li><a href="#"><img src="google-play.png" alt="Google Play"></a></li>
-                      <li><a href="#"><img src="app-store.png" alt="App Store"></a></li>
+                      <li><a href="#"><img src="./assets/gp.jpg" alt="Google Play"></a></li>
+                      <li><a href="#"><img src="./assets/ap.png" alt="App Store"></a></li>
                   </ul>
               </div>
           </div>

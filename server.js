@@ -424,8 +424,14 @@ app.get('/login', (req, res) => {
 });
 
 // Home route
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch all jobs or limit as required
+        res.render('home', { jobs });  // Pass the jobs to the EJS template
+    } catch (error) {
+        console.error('Failed to fetch jobs', error);
+        res.status(500).send('Server error');
+    }
 });
 
 app.post('/signup', upload.single('cv'), async (req, res) => {
