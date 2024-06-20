@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     qualification: { type: String, required: true },
     workExperience: { type: Number, required: true },
     skills: { type: String, required: true },
-    isEmployer: { type: Boolean, default: false }
+    isEmployer: { type: Boolean, default: false },
+    cv: { type: String }
 }, { _id: false }); // Prevents automatic creation of _id field
 
 const User = mongoose.model('User', userSchema);

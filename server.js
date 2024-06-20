@@ -6,6 +6,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt'); // Include bcrypt module
 const AppliedJob = require('./models/AppliedJob'); // Adjust the path based on your project structure
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,33 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false } // Set to true if using HTTPS
 }));
+
+// Multer configuration for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const filetypes = /pdf|jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb(new Error('Only PDF and image files are allowed!'));
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+});
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/Jobs', {
@@ -68,7 +96,8 @@ const userSchema = new mongoose.Schema({
     qualification: { type: String, required: true },
     workExperience: { type: Number, required: true },
     skills: { type: String, required: true },
-    isEmployer: { type: Boolean, default: false }
+    isEmployer: { type: Boolean, default: false },
+    cv: { type: String }
 });
 
 const User = mongoose.model('User', userSchema);
@@ -172,8 +201,8 @@ app.get('/updateprofile', async (req, res) => {
     }
 });
 
-// POST route to handle profile updates
-app.post('/updateprofile', async (req, res) => {
+// POST route to handle profile updates with CV upload
+app.post('/updateprofile', upload.single('cv'), async (req, res) => {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
@@ -192,6 +221,11 @@ app.post('/updateprofile', async (req, res) => {
             updateData.password = await bcrypt.hash(req.body.password, 10);
         }
 
+        if (req.file) {
+            updateData.cv = req.file.path;
+            console.log('File uploaded:', req.file);
+        }
+
         const updatedUser = await User.findByIdAndUpdate(req.session.userId, updateData, { new: true });
 
         if (updatedUser) {
@@ -200,7 +234,22 @@ app.post('/updateprofile', async (req, res) => {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: error.message });
+    }
+});
+
+// Route to handle CV download
+app.get('/download-cv', isAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findById(req.session.userId);
+        if (user && user.cv) {
+            res.download(user.cv);
+        } else {
+            res.status(404).send('CV not found');
+        }
+    } catch (error) {
+        res.status(500).send('Server error');
     }
 });
 
@@ -259,12 +308,26 @@ app.get('/findjob/query', async (req, res) => {
     }
 });
 
+app.get('/download-cv/:userId', isAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        if (user && user.cv) {
+            res.download(user.cv);
+        } else {
+            res.status(404).send('CV not found');
+        }
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+// Existing /applied-jobs-with-applicants route
 app.get('/applied-jobs-with-applicants', async (req, res) => {
     try {
         const appliedJobs = await AppliedJob.find()
             .populate({
                 path: 'userId',
-                select: 'username email qualification workExperience skills'
+                select: 'username email qualification workExperience skills cv'
             })
             .populate({
                 path: 'jobId',
@@ -277,7 +340,6 @@ app.get('/applied-jobs-with-applicants', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
 // Route to fetch a specific job
 app.get('/jobs/:id', async (req, res) => {
     try {
@@ -366,8 +428,7 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// User signup
-app.post('/signup', async (req, res) => {
+app.post('/signup', upload.single('cv'), async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const user = new User({
@@ -377,14 +438,18 @@ app.post('/signup', async (req, res) => {
             qualification: req.body.qualification,
             workExperience: req.body.workExperience,
             skills: req.body.skills,
-            isEmployer: req.body.isEmployer === 'on'
+            isEmployer: req.body.isEmployer === 'on',
+            cv: req.file ? req.file.path : null // Save CV file path if uploaded
         });
+        console.log('File uploaded:', req.file);
         const savedUser = await user.save();
         res.redirect('/login');
     } catch (error) {
+        console.error(error);
         res.status(400).json({ message: error.message });
     }
 });
+
 
 // User login
 app.post('/login', async (req, res) => {

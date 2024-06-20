@@ -152,6 +152,11 @@
                         <p class="mb-1"><strong>Qualification:</strong> <%= appliedJob.userId.qualification %></p>
                         <p class="mb-1"><strong>Work Experience:</strong> <%= appliedJob.userId.workExperience %> years</p>
                         <p class="mb-1"><strong>Skills:</strong> <%= appliedJob.userId.skills %></p>
+                        <% if (appliedJob.userId.cv) { %>
+                            <p class="mb-1"><strong>CV:</strong> <a href="/download-cv/<%= appliedJob.userId._id %>" target="_blank">Download CV</a></p>
+                        <% } else { %>
+                            <p class="mb-1"><strong>CV:</strong> Not uploaded</p>
+                        <% } %>
                     </li>
                 <% }); %>
             </ul>
