@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applicants for <%= job.title %></title>
+    <title>Project Details - <%= job.title %></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -109,31 +109,32 @@
 
     <main class="container">
         <div class="header">
-            <h2>Applicants for <%= job.title %></h2>
+            <h2>Project Details - <%= job.title %></h2>
         </div>
         <div class="content">
-            <ul class="job-list">
-                <% applicants.forEach(function(applicant) { %>
-                    <li class="job">
-                        <h5 style="font-size: 25px; font-weight: bold;" class="mb-1"><%= applicant.userId.username %></h5>
-                        <p class="mb-1"><strong>Email:</strong> <%= applicant.userId.email %></p>
-                        <p class="mb-1"><strong>Qualification:</strong> <%= applicant.userId.qualification %></p>
-                        <p class="mb-1"><strong>Work Experience:</strong> <%= applicant.userId.workExperience %> years</p>
-                        <p class="mb-1"><strong>Skills:</strong> <%= applicant.userId.skills %></p>
-                        <% if (applicant.userId.cv) { %>
-                            <p class="mb-1"><strong>CV:</strong> <a href="/download-cv/<%= applicant.userId._id %>" target="_blank">Download CV</a></p>
-                        <% } else { %>
-                            <p class="mb-1"><strong>CV:</strong> Not uploaded</p>
-                        <% } %>
-                    </li>
-                <% }); %>
-            </ul>
+            <div class="job">
+                <h5 style="font-size: 25px; font-weight: bold;">Job Title: <%= job.title %></h5>
+                <p><strong>Description:</strong> <%= job.description %></p>
+                <p><strong>Skills Required:</strong> <%= job.skills %></p>
+                <p><strong>Career Level:</strong> <%= job.careerLevel %></p>
+                <p><strong>Positions Available:</strong> <%= job.positions %></p>
+                <p><strong>Location:</strong> <%= job.location %></p>
+                <p><strong>Required Qualification:</strong> <%= job.qualification %></p>
+                <p><strong>Required Experience:</strong> <%= job.experience %> years</p>
+                <p><strong>Industry:</strong> <%= job.industry %></p>
+                <p><strong>Salary:</strong> PKR <%= job.salary %> fixed</p>
+                <p><strong>Gender Preference:</strong> <%= job.genderPreference %></p>
+                <form action="/apply" method="POST">
+                    <input type="hidden" name="jobId" value="<%= job._id %>">
+                    <button type="submit" class="btn btn-primary">Apply</button>
+                </form>
+            </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Applied Jobs with Applicants</p>
+            <p>&copy; 2024 Project Details</p>
         </div>
     </footer>
 
