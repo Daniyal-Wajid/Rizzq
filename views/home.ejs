@@ -78,20 +78,20 @@
         <hr>
         <div style="padding-left: 120px; padding-right: 120px;">
           <div class="slider-container">
-              <div class="slider">
-                  <% jobs.forEach(function(job) { %>
-                      <div class="card">
-                          <div>
-                              <h6><%= job.title %></h6>
-                              <p><%= job.description %></p>
-                              <p style="color: green;">PKR <%= job.salary %> fixed</p>
-                          </div>
-                          <a href="/job/<%= job._id %>/details" class="button">Project Details</a>
-                      </div>
-                  <% }); %>
-              </div>
+            <div class="slider">
+              <% jobs.forEach(function(job) { %>
+                <div class="card">
+                  <div>
+                    <h6><%= job.title %></h6>
+                    <p><%= job.description %></p>
+                    <p style="color: green;">PKR <%= job.salary %> fixed</p>
+                  </div>
+                  <a href="/findjob/query" class="button">Project Details</a>
+                </div>
+              <% }); %>
+            </div>
           </div>
-      </div>
+        </div>
       
         <div style="margin-top: 50px; background-color: lightgray;">‎ </div>                                        
     </div>
