@@ -92,6 +92,20 @@
               </div>
           </div>
       </div>
+            <div class="slider">
+              <% jobs.forEach(function(job) { %>
+                <div class="card">
+                  <div>
+                    <h6><%= job.title %></h6>
+                    <p><%= job.description %></p>
+                    <p style="color: green;">PKR <%= job.salary %> fixed</p>
+                  </div>
+                  <a href="/findjob/query" class="button">Project Details</a>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        </div>
       
         <div style="margin-top: 50px; background-color: lightgray;">‎ </div>                                        
     </div>
@@ -129,6 +143,18 @@
           <img src="./assets/shopify.png" alt="shopify">
           <h3>Architect</h3>
           <p>Shopify</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/garena.png" alt="garena">
+          <h3>Regional Sales</h3>
+          <p>Garena</p>
+        </div>
+        <div class="Carousel-card">
+          <img src="./assets/activision-logo.png" alt="activision">
+          <h3>Designer</h3>
+          <p>IT Solutions </p>
+        </div>
+        <div class="Carousel-card">
         </div>
         <div class="Carousel-card">
           <img src="./assets/garena.png" alt="garena">

@@ -53,9 +53,11 @@
         }
         header nav ul li .logout-btn {
             background-color: #dc3545;
+
         }
         header nav ul li .shortlist-btn {
             background-color: #28a745;
+
         }
         .container {
             padding: 20px;
@@ -142,6 +144,22 @@
                     <% }); %>
                 </ul>
             </form>
+            <ul class="job-list">
+                <% applicants.forEach(function(applicant) { %>
+                    <li class="job">
+                        <h5 style="font-size: 25px; font-weight: bold;" class="mb-1"><%= applicant.userId.username %></h5>
+                        <p class="mb-1"><strong>Email:</strong> <%= applicant.userId.email %></p>
+                        <p class="mb-1"><strong>Qualification:</strong> <%= applicant.userId.qualification %></p>
+                        <p class="mb-1"><strong>Work Experience:</strong> <%= applicant.userId.workExperience %> years</p>
+                        <p class="mb-1"><strong>Skills:</strong> <%= applicant.userId.skills %></p>
+                        <% if (applicant.userId.cv) { %>
+                            <p class="mb-1"><strong>CV:</strong> <a href="/download-cv/<%= applicant.userId._id %>" target="_blank">Download CV</a></p>
+                        <% } else { %>
+                            <p class="mb-1"><strong>CV:</strong> Not uploaded</p>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
         </div>
     </main>
     
