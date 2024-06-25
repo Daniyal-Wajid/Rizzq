@@ -78,7 +78,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
-            position: relative; /* Ensure relative positioning for absolute positioning of button */
         }
         .content .job-list .job h5 {
             color: #2b3e50;
@@ -87,11 +86,6 @@
         .content .job-list .job p {
             color: #666;
             margin-bottom: 10px;
-        }
-        .content .job-list .job .shortlist-form {
-            position: absolute;
-            bottom: 20px; /* Adjust as needed */
-            right: 20px; /* Adjust as needed */
         }
         footer {
             background-color: #2b3e50;
@@ -121,30 +115,24 @@
             <h2>Applicants for <%= job.title %></h2>
         </div>
         <div class="content">
-            <form id="shortlist-all-form" method="POST" action="/shortlist">
-                <button style="margin-left: 980px; margin-bottom: 30px;" type="submit" class="btn btn-primary">Shortlist All</button>
-                <input type="hidden" name="jobId" value="<%= job._id %>">
-                <ul class="job-list">
-                    
-                    <% applicants.forEach(function(applicant) { %>
-                        <li class="job">
-                            <h5 style="font-size: 25px; font-weight: bold;" class="mb-1"><%= applicant.userId.username %></h5>
-                            <p class="mb-1"><strong>Email:</strong> <%= applicant.userId.email %></p>
-                            <p class="mb-1"><strong>Qualification:</strong> <%= applicant.userId.qualification %></p>
-                            <p class="mb-1"><strong>Work Experience:</strong> <%= applicant.userId.workExperience %> years</p>
-                            <p class="mb-1"><strong>Skills:</strong> <%= applicant.userId.skills %></p>
-                            <% if (applicant.userId.cv) { %>
-                                <p class="mb-1"><strong>CV:</strong> <a href="/download-cv/<%= applicant.userId._id %>" target="_blank">Download CV</a></p>
-                            <% } else { %>
-                                <p class="mb-1"><strong>CV:</strong> Not uploaded</p>
-                            <% } %>
-                        </li>
-                    <% }); %>
-                </ul>
-            </form>
+            <ul class="job-list">
+                <% applicants.forEach(function(applicant) { %>
+                    <li class="job">
+                        <h5 style="font-size: 25px; font-weight: bold;" class="mb-1"><%= applicant.userId.username %></h5>
+                        <p class="mb-1"><strong>Email:</strong> <%= applicant.userId.email %></p>
+                        <p class="mb-1"><strong>Qualification:</strong> <%= applicant.userId.qualification %></p>
+                        <p class="mb-1"><strong>Work Experience:</strong> <%= applicant.userId.workExperience %> years</p>
+                        <p class="mb-1"><strong>Skills:</strong> <%= applicant.userId.skills %></p>
+                        <% if (applicant.userId.cv) { %>
+                            <p class="mb-1"><strong>CV:</strong> <a href="/download-cv/<%= applicant.userId._id %>" target="_blank">Download CV</a></p>
+                        <% } else { %>
+                            <p class="mb-1"><strong>CV:</strong> Not uploaded</p>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
         </div>
     </main>
-    
 
     <footer>
         <div class="container">

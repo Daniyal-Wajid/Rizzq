@@ -4,9 +4,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const bcrypt = require('bcrypt'); // Include bcrypt module
-const AppliedJob = require('./models/AppliedJob'); // Adjust the path based on your project structure
+const bcrypt = require('bcrypt'); 
+const AppliedJob = require('./models/AppliedJob'); 
 const multer = require('multer');
+const sendMail = require('./mailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,16 +58,14 @@ const upload = multer({
 });
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/Jobs', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect('mongodb://localhost:27017/Jobs')
     .then(() => {
         console.log('Connected to MongoDB');
     })
     .catch(err => {
         console.error('Failed to connect to MongoDB', err);
     });
+
 
 // Define your Job schema and model
 const jobSchema = new mongoose.Schema({
@@ -141,6 +140,57 @@ app.get('/appliedjobs', async (req, res) => {
     }
 });
 
+app.post('/apply', isAuthenticated, async (req, res) => {
+    const jobId = req.body.jobId;
+    const userId = req.session.userId;
+
+    try {
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        const existingApplication = await AppliedJob.findOne({ userId: userId, jobId: jobId });
+        if (existingApplication) {
+            return res.render('projectdetails', { job, error: 'You have already applied for this job' });
+        }
+
+        const application = new AppliedJob({
+            userId: userId,
+            jobId: jobId,
+            title: job.title,
+            description: job.description,
+            skills: job.skills,
+            careerLevel: job.careerLevel,
+            positions: job.positions,
+            location: job.location,
+            qualification: job.qualification,
+            experience: job.experience,
+            industry: job.industry,
+            salary: job.salary,
+            genderPreference: job.genderPreference
+        });
+
+        await application.save();
+
+        // Send email notification to the user
+        const subject = `Application Received for ${job.title}`;
+        const text = `Dear ${user.username},\n\nThank you for applying for the ${job.title} position. We have received your application and will review it soon.\n\nBest regards,\nRizzq Team`;
+        await sendMail(user.email, subject, text);
+
+        res.redirect('/appliedjobs'); // Redirect to applied jobs page or any other appropriate page
+    } catch (error) {
+        console.error('Error applying for job:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+
 app.get('/apply', isAuthenticated, async (req, res) => {
     const jobId = req.query.jobId;
     const userId = req.session.userId;
@@ -149,6 +199,11 @@ app.get('/apply', isAuthenticated, async (req, res) => {
         const job = await Job.findById(jobId);
         if (!job) {
             return res.status(404).send('Job not found');
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
         }
 
         const existingApplication = await AppliedJob.findOne({ userId: userId, jobId: jobId });
@@ -174,6 +229,12 @@ app.get('/apply', isAuthenticated, async (req, res) => {
         });
 
         await application.save();
+
+        // Send email notification to the user
+        const subject = `Application Received for ${job.title}`;
+        const text = `Dear ${user.username},\n\nThank you for applying for the ${job.title} position. We have received your application and will review it soon.\n\nBest regards,\nRizzq Team`;
+        await sendMail(user.email, subject, text);
+
         res.redirect('/appliedjobs');
     } catch (error) {
         console.error('Error applying for job:', error);
@@ -278,6 +339,20 @@ app.post('/deleteaccount', async (req, res) => {
     }
 });
 
+// Route to fetch and render job details
+app.get('/job/:id/details', async (req, res) => {
+    try {
+        const job = await Job.findById(req.params.id);
+        if (job) {
+            res.render('projectdetails', { job });
+        } else {
+            res.status(404).send('Job not found');
+        }
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
 // Route to handle job form submission
 app.post('/jobs', isAuthenticated, async (req, res) => {
     try {
@@ -322,24 +397,61 @@ app.get('/download-cv/:userId', isAuthenticated, async (req, res) => {
 });
 
 // Existing /applied-jobs-with-applicants route
-app.get('/applied-jobs-with-applicants', async (req, res) => {
+app.get('/job/:id/applicants', async (req, res) => {
     try {
-        const appliedJobs = await AppliedJob.find()
-            .populate({
-                path: 'userId',
-                select: 'username email qualification workExperience skills cv'
-            })
-            .populate({
-                path: 'jobId',
-                select: 'title description skills careerLevel location qualification experience industry salary'
-            });
-
-        res.render('applicant', { appliedJobs });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        const jobId = req.params.id;
+        // Find the job by ID
+        const job = await Job.findById(jobId);
+        // Find all applications for this job and populate the user details
+        const applicants = await AppliedJob.find({ jobId }).populate('userId').exec();
+        res.render('applicant', { job, applicants });
+    } catch (error) {
+        console.error('Error fetching job applicants:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
+
+app.post('/shortlist', isAuthenticated, async (req, res) => {
+    const { jobId } = req.body;
+
+    try {
+        // Find the job by ID
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        // Find all applicants for this job and populate userId field
+        const applications = await AppliedJob.find({ jobId }).populate('userId').exec();
+        const shortlistedApplicants = [];
+
+        // Check each applicant's skills against the job's skills
+        const jobSkills = job.skills.toLowerCase().split(',').map(skill => skill.trim());
+
+        for (const application of applications) {
+            const applicantSkills = application.userId.skills.toLowerCase().split(',').map(skill => skill.trim());
+            const commonSkills = jobSkills.filter(skill => applicantSkills.includes(skill));
+            
+            if (commonSkills.length > 0) {
+                shortlistedApplicants.push({
+                    userId: application.userId,
+                    commonSkills: commonSkills.join(', ')
+                });
+            }
+        }
+
+        if (shortlistedApplicants.length > 0) {
+            res.render('shortlisted', { job, applicants: shortlistedApplicants });
+        } else {
+            res.render('noapplicants', { job, message: 'No applicants match the required skills.' });
+        }
+    } catch (error) {
+        console.error('Error shortlisting applicant:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 // Route to fetch a specific job
 app.get('/jobs/:id', async (req, res) => {
     try {
@@ -424,8 +536,14 @@ app.get('/login', (req, res) => {
 });
 
 // Home route
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res) => {
+    try {
+        const jobs = await Job.find(); // Fetch all jobs or limit as required
+        res.render('home', { jobs });  // Pass the jobs to the EJS template
+    } catch (error) {
+        console.error('Failed to fetch jobs', error);
+        res.status(500).send('Server error');
+    }
 });
 
 app.post('/signup', upload.single('cv'), async (req, res) => {
@@ -441,15 +559,21 @@ app.post('/signup', upload.single('cv'), async (req, res) => {
             isEmployer: req.body.isEmployer === 'on',
             cv: req.file ? req.file.path : null // Save CV file path if uploaded
         });
+
         console.log('File uploaded:', req.file);
         const savedUser = await user.save();
+
+        // Send welcome email
+        const subject = 'Welcome to Rizzq!';
+        const text = `Hi ${user.username},\n\nThank you for signing up at Rizzq. We are excited to have you on board.\n\nBest regards,\nRizzq Team`;
+        await sendMail(user.email, subject, text);
+
         res.redirect('/login');
     } catch (error) {
         console.error(error);
         res.status(400).json({ message: error.message });
     }
 });
-
 
 // User login
 app.post('/login', async (req, res) => {
