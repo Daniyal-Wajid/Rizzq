@@ -411,6 +411,46 @@ app.get('/job/:id/applicants', async (req, res) => {
     }
 });
 
+app.post('/shortlist', isAuthenticated, async (req, res) => {
+    const { jobId } = req.body;
+
+    try {
+        // Find the job by ID
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        // Find all applicants for this job and populate userId field
+        const applications = await AppliedJob.find({ jobId }).populate('userId').exec();
+        const shortlistedApplicants = [];
+
+        // Check each applicant's skills against the job's skills
+        const jobSkills = job.skills.toLowerCase().split(',').map(skill => skill.trim());
+
+        for (const application of applications) {
+            const applicantSkills = application.userId.skills.toLowerCase().split(',').map(skill => skill.trim());
+            const commonSkills = jobSkills.filter(skill => applicantSkills.includes(skill));
+            
+            if (commonSkills.length > 0) {
+                shortlistedApplicants.push({
+                    userId: application.userId,
+                    commonSkills: commonSkills.join(', ')
+                });
+            }
+        }
+
+        if (shortlistedApplicants.length > 0) {
+            res.render('shortlisted', { job, applicants: shortlistedApplicants });
+        } else {
+            res.render('noapplicants', { job, message: 'No applicants match the required skills.' });
+        }
+    } catch (error) {
+        console.error('Error shortlisting applicant:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 // Route to fetch a specific job
 app.get('/jobs/:id', async (req, res) => {
